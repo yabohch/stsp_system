@@ -494,6 +494,10 @@
             <tr><td class="req-no">15</td><td class="req-mod">M-07</td><td class="req-q">是否需要特休餘額統計表？<br><span class="req-note">顯示每位員工剩餘特休天數</span></td><td class="req-sel"><select class="req-confirm" data-req="15"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="15"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="15"></td></tr>
           </tbody>
         </table></div>
+        <div class="overall-comment req-section-comment" style="margin:10px 0 0 0;border-radius:0 0 6px 6px;">
+          <label>📝 人事類整體意見：</label>
+          <textarea placeholder="請輸入對人事類功能的整體建議或補充說明…" rows="2"></textarea>
+        </div>
       </div>
 
       <div class="req-group">
@@ -510,6 +514,10 @@
             <tr><td class="req-no">22</td><td class="req-mod">M-11</td><td class="req-q">預算期間是否為年度制，或需要支援季度預算？</td><td class="req-sel"><select class="req-confirm" data-req="22"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="22"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="22"></td></tr>
           </tbody>
         </table></div>
+        <div class="overall-comment req-section-comment" style="margin:10px 0 0 0;border-radius:0 0 6px 6px;">
+          <label>📝 帳務類整體意見：</label>
+          <textarea placeholder="請輸入對帳務類功能的整體建議或補充說明…" rows="2"></textarea>
+        </div>
       </div>
 
       <div class="req-group">
@@ -522,6 +530,10 @@
             <tr><td class="req-no">25</td><td class="req-mod">M-12</td><td class="req-q">駁回後，申請人是否可以修改後重新送出？</td><td class="req-sel"><select class="req-confirm" data-req="25"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="25"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="25"></td></tr>
           </tbody>
         </table></div>
+        <div class="overall-comment req-section-comment" style="margin:10px 0 0 0;border-radius:0 0 6px 6px;">
+          <label>📝 請購類整體意見：</label>
+          <textarea placeholder="請輸入對請購類功能的整體建議或補充說明…" rows="2"></textarea>
+        </div>
       </div>
 
       <div class="req-group">
@@ -534,6 +546,15 @@
             <tr><td class="req-no">28</td><td class="req-mod">全系統</td><td class="req-q">資料保存年限？是否需要定期歸檔或清除舊資料的機制？</td><td class="req-sel"><select class="req-confirm" data-req="28"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="28"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="28"></td></tr>
           </tbody>
         </table></div>
+        <div class="overall-comment req-section-comment" style="margin:10px 0 0 0;border-radius:0 0 6px 6px;">
+          <label>📝 系統通用整體意見：</label>
+          <textarea placeholder="請輸入對系統通用功能的整體建議或補充說明…" rows="2"></textarea>
+        </div>
+      </div>
+
+      <div class="overall-comment req-section-comment" style="margin-top:20px;border-top:2px solid #2C7873;border-radius:8px;">
+        <label style="font-size:14px;font-weight:700;">📋 功能需求整體意見：</label>
+        <textarea placeholder="請輸入對全部功能需求的整體看法，或有其他未列出的功能需求…" rows="3"></textarea>
       </div>
 
     </div>
@@ -1938,6 +1959,10 @@
     document.querySelectorAll('.overall-comment textarea').forEach(function (ta) {
       data.areas.push(ta.value);
     });
+    data.reqAreas = [];
+    document.querySelectorAll('.req-section-comment textarea').forEach(function (ta) {
+      data.reqAreas.push(ta.value);
+    });
     return data;
   }
 
@@ -1958,6 +1983,10 @@
     var areas = document.querySelectorAll('.overall-comment textarea');
     (data.areas || []).forEach(function (v, i) {
       if (areas[i] && v) { areas[i].value = v; hasAny = true; }
+    });
+    var reqAreas = document.querySelectorAll('.req-section-comment textarea');
+    (data.reqAreas || []).forEach(function (v, i) {
+      if (reqAreas[i] && v) { reqAreas[i].value = v; hasAny = true; }
     });
     return hasAny;
   }
@@ -2004,7 +2033,7 @@
 
   /* ── 監聽所有輸入 ── */
   function bindListeners() {
-    document.querySelectorAll('input[type="radio"], input.comment-input, .overall-comment textarea, .req-confirm, .req-priority')
+    document.querySelectorAll('input[type="radio"], input.comment-input, .overall-comment textarea, .req-section-comment textarea, .req-confirm, .req-priority')
       .forEach(function (el) {
         el.addEventListener('change', save);
         el.addEventListener('input',  save);
@@ -2069,20 +2098,41 @@
     lines.push('');
     lines.push('【功能需求確認清單】');
     lines.push('='.repeat(60));
-    document.querySelectorAll('.req-table tbody tr').forEach(function (row) {
-      var no      = row.querySelector('.req-no')   ? row.querySelector('.req-no').textContent.trim()  : '';
-      var mod     = row.querySelector('.req-mod')  ? row.querySelector('.req-mod').textContent.trim() : '';
-      var q       = row.querySelector('.req-q')    ? row.querySelector('.req-q').firstChild.textContent.trim() : '';
-      var confirm = row.querySelector('.req-confirm') ? row.querySelector('.req-confirm').value : '';
-      var prio    = row.querySelector('.req-priority') ? row.querySelector('.req-priority').value : '';
-      var reply   = row.querySelector('.req-reply')   ? row.querySelector('.req-reply').value.trim() : '';
-      if (!confirm && !reply) return;
+    var reqSectionComments = document.querySelectorAll('.req-section-comment textarea');
+    var reqSectionIdx = 0;
+    document.querySelectorAll('.req-group').forEach(function (group) {
+      var groupTitle = group.querySelector('.req-group-title') ?
+        group.querySelector('.req-group-title').textContent.trim() : '';
       lines.push('');
-      lines.push('  #' + no + ' [' + mod + '] ' + q);
-      if (confirm) lines.push('  確認：' + confirm + (prio ? '　優先度：' + prio : ''));
-      if (reply)   lines.push('  回覆：' + reply);
-      hasContent = true;
+      lines.push('〔' + groupTitle + '〕');
+      group.querySelectorAll('.req-table tbody tr').forEach(function (row) {
+        var no      = row.querySelector('.req-no')   ? row.querySelector('.req-no').textContent.trim()  : '';
+        var mod     = row.querySelector('.req-mod')  ? row.querySelector('.req-mod').textContent.trim() : '';
+        var q       = row.querySelector('.req-q')    ? row.querySelector('.req-q').firstChild.textContent.trim() : '';
+        var confirm = row.querySelector('.req-confirm') ? row.querySelector('.req-confirm').value : '';
+        var prio    = row.querySelector('.req-priority') ? row.querySelector('.req-priority').value : '';
+        var reply   = row.querySelector('.req-reply')   ? row.querySelector('.req-reply').value.trim() : '';
+        if (!confirm && !reply) return;
+        lines.push('');
+        lines.push('  #' + no + ' [' + mod + '] ' + q);
+        if (confirm) lines.push('  確認：' + confirm + (prio ? '　優先度：' + prio : ''));
+        if (reply)   lines.push('  回覆：' + reply);
+        hasContent = true;
+      });
+      var groupComment = reqSectionComments[reqSectionIdx] ? reqSectionComments[reqSectionIdx].value.trim() : '';
+      reqSectionIdx++;
+      if (groupComment) {
+        lines.push('');
+        lines.push('  ▸ 整體意見：' + groupComment);
+        hasContent = true;
+      }
     });
+    var finalReqComment = reqSectionComments[reqSectionIdx] ? reqSectionComments[reqSectionIdx].value.trim() : '';
+    if (finalReqComment) {
+      lines.push('');
+      lines.push('  ▸ 功能需求整體意見：' + finalReqComment);
+      hasContent = true;
+    }
     lines.push('');
     lines.push('【流程圖確認】');
     lines.push('='.repeat(60));

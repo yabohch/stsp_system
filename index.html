@@ -95,9 +95,41 @@
       flex: 1; padding: 32px; overflow-x: hidden;
       transition: padding-left .28s ease;
       min-width: 0;
+      display: flex; flex-direction: column;
     }
     body.sidebar-open #main { padding-left: 32px; }
     body.sidebar-closed #main { padding-left: 28px; }
+
+    /* 功能需求確認清單視覺上移至最後 */
+    #requirements { order: 10; }
+
+    /* ── 分類標題 ────────────────────────── */
+    .group-heading {
+      background: linear-gradient(135deg, #1E3A5F 0%, #2C7873 100%);
+      color: #fff;
+      border-radius: 12px;
+      padding: 20px 28px;
+      margin-bottom: 4px;
+    }
+    .group-heading h2 { font-size: 18px; margin-bottom: 6px; }
+    .group-heading p { font-size: 13px; opacity: .8; line-height: 1.6; }
+
+    /* ── 需求群組整體意見 ─────────────────── */
+    .req-section-comment {
+      display: flex; align-items: flex-start; gap: 12px;
+      background: #F0FBF9; border: 1px solid #B2DFDB;
+      border-radius: 8px; padding: 14px;
+    }
+    .req-section-comment label {
+      font-size: 13px; font-weight: 600; color: #2C7873;
+      white-space: nowrap; padding-top: 6px;
+    }
+    .req-section-comment textarea {
+      flex: 1; border: 1px solid #B2DFDB; border-radius: 6px;
+      padding: 8px 10px; font-size: 13px; font-family: inherit;
+      resize: vertical; background: #fff;
+    }
+    .req-section-comment textarea:focus { outline: none; border-color: #2C7873; }
 
     /* ── 封面卡片 ────────────────────────── */
     #cover {
@@ -421,15 +453,18 @@
     <h1>STSP 行政平台<br>系統流程確認文件</h1>
     <p>v1.0 ／ 2026 年 6 月<br>業主審閱版</p>
   </div>
-  <ul><li><a href="#requirements">📋 功能需求確認清單</a></li>
+  <ul>
+    <li><a href="#flow-diagrams">📊 系統流程圖確認</a></li>
     <li><a href="#overall">1. 整體系統架構與角色導向</a></li>
-<li><a href="#hr-attendance">2. 人事差勤主流程（M-02 / M-03 / M-04 / M-05）</a></li>
-<li><a href="#m01">3. M-01 員工基本資料管理流程</a></li>
-<li><a href="#m04-m05">4. M-04 請假申請 × M-05 審核中心 詳細流程</a></li>
-<li><a href="#m06">5. M-06 績效考核流程</a></li>
-<li><a href="#finance">6. 帳務模組整合流程（M-08 / M-09 / M-10 / M-11）</a></li>
-<li><a href="#m12">7. M-12 請購單完整流程</a></li>
-<li><a href="#cross-module">8. 跨模組自動化整合流程</a></li></ul>
+    <li><a href="#hr-attendance">2. 人事差勤主流程（M-02 / M-03 / M-04 / M-05）</a></li>
+    <li><a href="#m01">3. M-01 員工基本資料管理流程</a></li>
+    <li><a href="#m04-m05">4. M-04 請假申請 × M-05 審核中心 詳細流程</a></li>
+    <li><a href="#m06">5. M-06 績效考核流程</a></li>
+    <li><a href="#finance">6. 帳務模組整合流程（M-08 / M-09 / M-10 / M-11）</a></li>
+    <li><a href="#m12">7. M-12 請購單完整流程</a></li>
+    <li><a href="#cross-module">8. 跨模組自動化整合流程</a></li>
+    <li><a href="#requirements">📋 功能需求確認清單</a></li>
+  </ul>
 </nav>
 
 <!-- 主內容 -->
@@ -494,7 +529,7 @@
             <tr><td class="req-no">15</td><td class="req-mod">M-07</td><td class="req-q">是否需要特休餘額統計表？<br><span class="req-note">顯示每位員工剩餘特休天數</span></td><td class="req-sel"><select class="req-confirm" data-req="15"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="15"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="15"></td></tr>
           </tbody>
         </table></div>
-        <div class="overall-comment req-section-comment" style="margin:10px 0 0 0;border-radius:0 0 6px 6px;">
+        <div class="req-section-comment" style="margin:10px 0 0 0;border-radius:0 0 6px 6px;">
           <label>📝 人事類整體意見：</label>
           <textarea placeholder="請輸入對人事類功能的整體建議或補充說明…" rows="2"></textarea>
         </div>
@@ -514,7 +549,7 @@
             <tr><td class="req-no">22</td><td class="req-mod">M-11</td><td class="req-q">預算期間是否為年度制，或需要支援季度預算？</td><td class="req-sel"><select class="req-confirm" data-req="22"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="22"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="22"></td></tr>
           </tbody>
         </table></div>
-        <div class="overall-comment req-section-comment" style="margin:10px 0 0 0;border-radius:0 0 6px 6px;">
+        <div class="req-section-comment" style="margin:10px 0 0 0;border-radius:0 0 6px 6px;">
           <label>📝 帳務類整體意見：</label>
           <textarea placeholder="請輸入對帳務類功能的整體建議或補充說明…" rows="2"></textarea>
         </div>
@@ -530,7 +565,7 @@
             <tr><td class="req-no">25</td><td class="req-mod">M-12</td><td class="req-q">駁回後，申請人是否可以修改後重新送出？</td><td class="req-sel"><select class="req-confirm" data-req="25"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="25"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="25"></td></tr>
           </tbody>
         </table></div>
-        <div class="overall-comment req-section-comment" style="margin:10px 0 0 0;border-radius:0 0 6px 6px;">
+        <div class="req-section-comment" style="margin:10px 0 0 0;border-radius:0 0 6px 6px;">
           <label>📝 請購類整體意見：</label>
           <textarea placeholder="請輸入對請購類功能的整體建議或補充說明…" rows="2"></textarea>
         </div>
@@ -546,13 +581,13 @@
             <tr><td class="req-no">28</td><td class="req-mod">全系統</td><td class="req-q">資料保存年限？是否需要定期歸檔或清除舊資料的機制？</td><td class="req-sel"><select class="req-confirm" data-req="28"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="28"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="28"></td></tr>
           </tbody>
         </table></div>
-        <div class="overall-comment req-section-comment" style="margin:10px 0 0 0;border-radius:0 0 6px 6px;">
+        <div class="req-section-comment" style="margin:10px 0 0 0;border-radius:0 0 6px 6px;">
           <label>📝 系統通用整體意見：</label>
           <textarea placeholder="請輸入對系統通用功能的整體建議或補充說明…" rows="2"></textarea>
         </div>
       </div>
 
-      <div class="overall-comment req-section-comment" style="margin-top:20px;border-top:2px solid #2C7873;border-radius:8px;">
+      <div class="req-section-comment" style="margin-top:20px;border-top:2px solid #2C7873;border-radius:8px;">
         <label style="font-size:14px;font-weight:700;">📋 功能需求整體意見：</label>
         <textarea placeholder="請輸入對全部功能需求的整體看法，或有其他未列出的功能需求…" rows="3"></textarea>
       </div>
@@ -560,7 +595,10 @@
     </div>
   </section>
 
-  <!-- 各流程區塊 -->
+  <div id="flow-diagrams" class="group-heading">
+    <h2>📊 系統流程圖確認</h2>
+    <p>共 8 張系統流程圖，請逐項確認步驟是否符合貴協會實際作業流程。</p>
+  </div>
 
   <section id="overall" class="flow-section">
     <div class="section-header">
@@ -2088,10 +2126,6 @@
     lines.push('📩  回覆請寄至：yabohch@raiseheadstudio.com');
     lines.push('='.repeat(60));
 
-    var textIdx  = 0;
-    var areaIdx  = 0;
-    var allTexts = document.querySelectorAll('input.comment-input');
-    var allAreas = document.querySelectorAll('.overall-comment textarea');
     var hasContent = false;
 
     /* 需求確認清單 */
@@ -2138,19 +2172,19 @@
     lines.push('='.repeat(60));
 
     document.querySelectorAll('.flow-section').forEach(function (sec) {
+      if (sec.id === 'requirements') return;
       var title = sec.querySelector('h2') ? sec.querySelector('h2').textContent.trim() : '';
       lines.push('');
       lines.push('【' + title + '】');
       lines.push('-'.repeat(50));
 
-      var rows = sec.querySelectorAll('.confirm-table tbody tr');
-      rows.forEach(function (row) {
+      sec.querySelectorAll('.confirm-table tbody tr').forEach(function (row) {
         var step    = row.querySelector('.step-name') ? row.querySelector('.step-name').textContent.trim() : '';
         var desc    = row.querySelector('.step-desc') ? row.querySelector('.step-desc').textContent.trim() : '';
         var checked = row.querySelector('input[type="radio"]:checked');
         var status  = checked ? checked.value : '（未確認）';
-        var comment = (allTexts[textIdx] && allTexts[textIdx].value) ? allTexts[textIdx].value.trim() : '';
-        textIdx++;
+        var cmtEl   = row.querySelector('input.comment-input');
+        var comment = cmtEl ? cmtEl.value.trim() : '';
 
         lines.push('');
         lines.push('  步驟  ：' + step + (desc ? '　' + desc : ''));
@@ -2159,8 +2193,8 @@
         if (checked && checked.value !== '同意') hasContent = true;
       });
 
-      var overall = (allAreas[areaIdx] && allAreas[areaIdx].value) ? allAreas[areaIdx].value.trim() : '';
-      areaIdx++;
+      var overallTA = sec.querySelector('.overall-comment textarea');
+      var overall   = overallTA ? overallTA.value.trim() : '';
       if (overall) {
         lines.push('');
         lines.push('  ▸ 整體意見：' + overall);

@@ -1,0 +1,2186 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STSP 行政平台 — 系統流程確認文件 v1.0</title>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        primaryColor: '#EBF4FA',
+        primaryTextColor: '#1E3A5F',
+        primaryBorderColor: '#4A6FA5',
+        lineColor: '#4A6FA5',
+        secondaryColor: '#D4EDDA',
+        tertiaryColor: '#FFF9C4',
+        fontSize: '14px'
+      },
+      flowchart: { htmlLabels: true, curve: 'basis', padding: 20 }
+    });
+  </script>
+  <style>
+    /* ── 基礎 ─────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: '微軟正黑體', 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+      background: #F5F7FA;
+      color: #2D3748;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── 側邊導覽 ───────────────────────── */
+    /* ── 收合按鈕 ───────────────────────── */
+    /* 收合箭頭按鈕：貼在側邊欄右緣中央 */
+    #sidebar-toggle {
+      position: fixed;
+      left: 210px;          /* 與側邊欄寬度同步 */
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2000;
+      width: 16px; height: 52px;
+      border-radius: 0 6px 6px 0;
+      background: #2C7873; color: #fff; border: none;
+      cursor: pointer; font-size: 13px; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 2px 0 8px rgba(0,0,0,.25);
+      transition: left .28s ease, background .15s;
+      padding: 0;
+    }
+    #sidebar-toggle:hover { background: #3d9e97; }
+    body.sidebar-closed #sidebar-toggle { left: 0; }
+
+    #sidebar {
+      width: 210px;
+      min-width: 210px;
+      background: #1E3A5F;
+      color: #fff;
+      padding: 24px 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      transition: width .28s ease, min-width .28s ease, padding .28s ease;
+      flex-shrink: 0;
+    }
+    #sidebar.collapsed {
+      width: 0; min-width: 0; padding: 0;
+    }
+    #sidebar .logo {
+      padding: 0 24px 16px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.15);
+    }
+    #sidebar .logo h1 { font-size: 13px; line-height: 1.5; }
+    #sidebar .logo p  { font-size: 11px; opacity: .7; margin-top: 4px; line-height: 1.4; }
+    #sidebar ul { list-style: none; padding: 8px 0; }
+    #sidebar ul li a {
+      display: block;
+      padding: 8px 24px 8px 16px;  /* 右側留 24px 避免被箭頭蓋住 */
+      color: rgba(255,255,255,.8);
+      text-decoration: none;
+      font-size: 12px;
+      transition: background .15s;
+      line-height: 1.5;
+      white-space: normal;          /* 允許換行 */
+      word-break: break-word;
+    }
+    #sidebar ul li a:hover { background: rgba(255,255,255,.1); color: #fff; }
+
+    /* ── 主內容 ─────────────────────────── */
+    #main {
+      flex: 1; padding: 32px; overflow-x: hidden;
+      transition: padding-left .28s ease;
+      min-width: 0;
+    }
+    body.sidebar-open #main { padding-left: 32px; }
+    body.sidebar-closed #main { padding-left: 28px; }
+
+    /* ── 封面卡片 ────────────────────────── */
+    #cover {
+      background: linear-gradient(135deg, #1E3A5F 0%, #2C7873 100%);
+      color: #fff;
+      border-radius: 12px;
+      padding: 40px;
+      margin-bottom: 32px;
+    }
+    #cover h1 { font-size: 26px; margin-bottom: 8px; }
+    #cover p { opacity: .85; line-height: 1.8; font-size: 14px; }
+    #cover .meta {
+      display: flex; gap: 32px; margin-top: 20px; flex-wrap: wrap;
+    }
+    #cover .meta span {
+      background: rgba(255,255,255,.15);
+      padding: 6px 14px; border-radius: 20px; font-size: 13px;
+    }
+    .fill-tip {
+      background: #FFF9C4; border-left: 4px solid #F6C90E;
+      border-radius: 6px; padding: 14px 18px; margin-bottom: 32px;
+      font-size: 14px; line-height: 1.8;
+    }
+
+    /* ── 流程區塊 ────────────────────────── */
+    .flow-section {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+      margin-bottom: 36px;
+      overflow: hidden;
+    }
+    .section-header {
+      background: linear-gradient(90deg, #1E3A5F, #2C7873);
+      color: #fff;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .section-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: bold; flex-shrink: 0;
+    }
+    .section-header h2 { font-size: 17px; margin-bottom: 4px; }
+    .section-desc { font-size: 13px; opacity: .85; line-height: 1.5; }
+
+    /* ── 圖表區 ─────────────────────────── */
+    .chart-wrapper {
+      background: #FAFBFC;
+      border-bottom: 1px solid #E8EDF2;
+      overflow-x: auto;
+      position: relative;
+    }
+    .mermaid { width: 100%; }
+    .mermaid svg { width: 100% !important; height: auto !important; display: block; }
+
+    /* ── 確認表格 ────────────────────────── */
+    .confirm-area { padding: 20px 24px; }
+    .confirm-area h3 {
+      font-size: 14px; color: #2C7873;
+      margin-bottom: 12px; font-weight: 600;
+    }
+    .confirm-table {
+      width: 100%; border-collapse: collapse; font-size: 13px;
+      margin-bottom: 16px;
+    }
+    .confirm-table th {
+      background: #EBF4FA; color: #1E3A5F;
+      padding: 9px 12px; text-align: left; font-weight: 600;
+      border: 1px solid #D0DCE8;
+    }
+    .confirm-table td {
+      padding: 8px 12px; border: 1px solid #E8EDF2;
+      vertical-align: middle;
+    }
+    .confirm-table tr:nth-child(even) td { background: #FAFBFC; }
+    .step-name { font-weight: 600; color: #1E3A5F; width: 22%; }
+    .step-desc { color: #666; width: 28%; font-size: 12px; }
+    .td-confirm { width: 22%; }
+    .td-confirm label {
+      display: inline-flex; align-items: center; gap: 4px;
+      margin-right: 10px; cursor: pointer; font-size: 12px;
+      white-space: nowrap;
+    }
+    .td-confirm input[type="radio"] { accent-color: #2C7873; }
+    .td-comment { width: 28%; }
+    .comment-input {
+      width: 100%; border: 1px solid #D0DCE8; border-radius: 4px;
+      padding: 5px 8px; font-size: 12px; font-family: inherit;
+      background: #FFFBF0;
+    }
+    .comment-input:focus { outline: none; border-color: #2C7873; }
+
+    .overall-comment {
+      display: flex; align-items: flex-start; gap: 12px;
+      background: #F0FBF9; border: 1px solid #B2DFDB;
+      border-radius: 8px; padding: 14px;
+    }
+    .overall-comment label {
+      font-size: 13px; font-weight: 600; color: #2C7873;
+      white-space: nowrap; padding-top: 6px;
+    }
+    .overall-comment textarea {
+      flex: 1; border: 1px solid #B2DFDB; border-radius: 6px;
+      padding: 8px 10px; font-size: 13px; font-family: inherit;
+      resize: vertical; background: #fff;
+    }
+    .overall-comment textarea:focus { outline: none; border-color: #2C7873; }
+
+    /* ── 列印樣式 ────────────────────────── */
+    /* ── 底部操作列 ─────────────────────── */
+    #action-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 1500;
+      background: #1E3A5F; color: #fff;
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 24px;
+      box-shadow: 0 -2px 12px rgba(0,0,0,.25);
+    }
+    #save-indicator {
+      font-size: 13px; opacity: .85;
+    }
+    #save-indicator.fresh { color: #81C784; opacity: 1; }
+    #progress-indicator {
+      font-size: 12px; color: rgba(255,255,255,.7);
+      flex: 1; margin-left: 10px;
+    }
+    #progress-indicator.done { color: #81C784; }
+    .action-btn {
+      padding: 7px 18px; border-radius: 7px; border: none;
+      font-size: 13px; font-family: inherit; cursor: pointer;
+      transition: background .15s;
+    }
+    #btn-export {
+      background: #2C7873; color: #fff;
+    }
+    #btn-export:hover { background: #3d9e97; }
+    #btn-clear {
+      background: rgba(255,255,255,.12); color: rgba(255,255,255,.85);
+    }
+    #btn-clear:hover { background: rgba(255,255,255,.22); }
+
+    /* ── 載入提示橫幅 ──────────────────── */
+    #restore-banner {
+      display: none;
+      background: #E8F5E9; color: #2E7D32;
+      border-left: 4px solid #43A047;
+      padding: 10px 20px; font-size: 13px;
+      margin-bottom: 20px; border-radius: 6px;
+      align-items: center; gap: 12px;
+    }
+    #restore-banner.show { display: flex; }
+    #restore-banner button {
+      background: none; border: 1px solid #43A047; color: #2E7D32;
+      border-radius: 5px; padding: 3px 10px; cursor: pointer; font-size: 12px;
+    }
+
+    /* 底部列占位，避免被蓋住 */
+    #main { padding-bottom: 64px; }
+
+
+    /* ── 需求確認清單 ───────────────────── */
+    .req-body { padding: 20px 24px; }
+    .req-group { margin-bottom: 24px; }
+    .req-group-title {
+      background: #4A6FA5; color: #fff;
+      padding: 8px 14px; border-radius: 6px 6px 0 0;
+      font-size: 13px; font-weight: 600;
+    }
+    .req-table-wrap { overflow-x: auto; }
+    .req-table {
+      width: 100%; border-collapse: collapse; font-size: 13px;
+    }
+    .req-table th {
+      background: #EBF4FA; color: #1E3A5F;
+      padding: 8px 10px; text-align: left; font-weight: 600;
+      border: 1px solid #D0DCE8; white-space: nowrap;
+    }
+    .req-table td {
+      padding: 8px 10px; border: 1px solid #E8EDF2;
+      vertical-align: middle;
+    }
+    .req-no  { text-align: center; color: #888; font-size: 12px; }
+    .req-mod { text-align: center; font-weight: 600; color: #2C7873; white-space: nowrap; }
+    .req-q   { line-height: 1.5; }
+    .req-note { font-size: 11px; color: #999; }
+    .req-sel select, .req-confirm, .req-priority {
+      width: 100%; border: 1px solid #CBD5E0; border-radius: 5px;
+      padding: 5px 6px; font-size: 12px; font-family: inherit;
+      background: #FFFBF0; cursor: pointer;
+    }
+    .req-confirm:focus, .req-priority:focus { outline: none; border-color: #2C7873; }
+    .req-reply { width: 100%; }
+
+    @media print {
+      #sidebar { display: none !important; }
+      #sidebar-toggle { display: none !important; }
+      #action-bar { display: none !important; }
+      #restore-banner { display: none !important; }
+      body { display: block; background: #fff; }
+      #main { padding: 0; padding-bottom: 0; }
+      #cover { border-radius: 0; }
+      .flow-section { page-break-inside: avoid; box-shadow: none;
+        border: 1px solid #ccc; margin-bottom: 20px; }
+      .comment-input, textarea { border: 1px solid #aaa !important; }
+      .fill-tip { display: none; }
+    }
+
+    /* ── 捲動行為 ────────────────────────── */
+    html { scroll-behavior: smooth; }
+
+    /* ── 縮放工具列 ─────────────────────── */
+    .zoom-toolbar {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 14px; background: #F0F4F8;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .zoom-toolbar span { font-size: 12px; color: #888; }
+    .zoom-btn {
+      padding: 4px 11px; border-radius: 6px; border: 1px solid #CBD5E0;
+      background: #fff; cursor: pointer; font-size: 13px;
+      font-family: inherit; color: #1E3A5F; transition: all .15s;
+    }
+    .zoom-btn:hover { background: #EBF4FA; border-color: #4A6FA5; }
+    .zoom-level { font-size: 12px; color: #666; min-width: 44px; text-align: center; }
+    .chart-inner {
+      transform-origin: top left;
+      transition: transform .2s ease;
+      padding: 24px;
+      width: 100%;
+    }
+
+    /* ── 全螢幕 Modal ───────────────────── */
+    #chart-modal {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,.75); align-items: center; justify-content: center;
+    }
+    #chart-modal.open { display: flex; }
+    #modal-inner {
+      background: #fff; border-radius: 12px;
+      width: 95vw; max-height: 95vh;
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    #modal-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 20px; background: #1E3A5F; color: #fff;
+      border-radius: 12px 12px 0 0;
+      flex-shrink: 0;
+    }
+    #modal-title { font-size: 15px; font-weight: 600; }
+    #modal-close {
+      background: rgba(255,255,255,.2); border: none; color: #fff;
+      width: 32px; height: 32px; border-radius: 50%;
+      cursor: pointer; font-size: 18px; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #modal-close:hover { background: rgba(255,255,255,.35); }
+    #modal-body {
+      flex: 1; overflow: auto; padding: 32px;
+      display: flex; justify-content: center; align-items: flex-start;
+    }
+    #modal-body .mermaid { width: 100%; }
+    #modal-zoom-bar {
+      display: flex; align-items: center; gap: 8px; justify-content: center;
+      padding: 10px; background: #F5F7FA; border-top: 1px solid #E2E8F0;
+      flex-shrink: 0;
+    }
+    #modal-hint { font-size: 11px; color: #aaa; margin-left: 12px; }
+
+
+    /* ── 需求確認清單 ───────────────────── */
+    .req-body { padding: 20px 24px; }
+    .req-group { margin-bottom: 24px; }
+    .req-group-title {
+      background: #4A6FA5; color: #fff;
+      padding: 8px 14px; border-radius: 6px 6px 0 0;
+      font-size: 13px; font-weight: 600;
+    }
+    .req-table-wrap { overflow-x: auto; }
+    .req-table {
+      width: 100%; border-collapse: collapse; font-size: 13px;
+    }
+    .req-table th {
+      background: #EBF4FA; color: #1E3A5F;
+      padding: 8px 10px; text-align: left; font-weight: 600;
+      border: 1px solid #D0DCE8; white-space: nowrap;
+    }
+    .req-table td {
+      padding: 8px 10px; border: 1px solid #E8EDF2;
+      vertical-align: middle;
+    }
+    .req-no  { text-align: center; color: #888; font-size: 12px; }
+    .req-mod { text-align: center; font-weight: 600; color: #2C7873; white-space: nowrap; }
+    .req-q   { line-height: 1.5; }
+    .req-note { font-size: 11px; color: #999; }
+    .req-sel select, .req-confirm, .req-priority {
+      width: 100%; border: 1px solid #CBD5E0; border-radius: 5px;
+      padding: 5px 6px; font-size: 12px; font-family: inherit;
+      background: #FFFBF0; cursor: pointer;
+    }
+    .req-confirm:focus, .req-priority:focus { outline: none; border-color: #2C7873; }
+    .req-reply { width: 100%; }
+
+    @media print {
+      .zoom-toolbar { display: none !important; }
+      #chart-modal { display: none !important; }
+      .chart-inner { transform: none !important; padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- 收合按鈕（永遠可見） -->
+<button id="sidebar-toggle" title="收合選單">‹</button>
+
+<!-- 側邊導覽 -->
+<nav id="sidebar">
+  <div class="logo">
+    <h1>STSP 行政平台<br>系統流程確認文件</h1>
+    <p>v1.0 ／ 2026 年 6 月<br>業主審閱版</p>
+  </div>
+  <ul><li><a href="#requirements">📋 功能需求確認清單</a></li>
+    <li><a href="#overall">1. 整體系統架構與角色導向</a></li>
+<li><a href="#hr-attendance">2. 人事差勤主流程（M-02 / M-03 / M-04 / M-05）</a></li>
+<li><a href="#m01">3. M-01 員工基本資料管理流程</a></li>
+<li><a href="#m04-m05">4. M-04 請假申請 × M-05 審核中心 詳細流程</a></li>
+<li><a href="#m06">5. M-06 績效考核流程</a></li>
+<li><a href="#finance">6. 帳務模組整合流程（M-08 / M-09 / M-10 / M-11）</a></li>
+<li><a href="#m12">7. M-12 請購單完整流程</a></li>
+<li><a href="#cross-module">8. 跨模組自動化整合流程</a></li></ul>
+</nav>
+
+<!-- 主內容 -->
+<main id="main">
+
+  <!-- 載入提示橫幅 -->
+  <div id="restore-banner">
+    <span>✅ 找到上次儲存的填寫記錄，已自動載入。</span>
+    <button id="btn-discard">捨棄並重新填寫</button>
+  </div>
+
+  <!-- 封面 -->
+  <div id="cover">
+    <h1>STSP 行政平台 — 系統流程確認文件</h1>
+    <p>本文件包含系統各功能模組的流程圖，供業主確認系統運作邏輯是否符合實際需求。<br>
+       請針對每個流程步驟勾選確認狀態，並在意見欄填寫調整需求。</p>
+    <div class="meta">
+      <span>業主：社團法人中華民國南部科學園區產學協會</span>
+      <span>版本：v1.0</span>
+      <span>日期：2026 年 6 月</span>
+      <span>流程圖數量：8 張</span>
+    </div>
+  </div>
+
+  <!-- 填寫說明 -->
+  <div class="fill-tip">
+    📋 <strong>填寫說明：</strong>
+    每張流程圖下方皆有確認表格。請針對每個流程步驟，點選「同意 / 需調整 / 不需要」，
+    並在意見欄輸入具體調整方向。填寫完後可直接列印（Ctrl+P）或截圖回傳給開發團隊。
+  </div>
+
+  <!-- 功能需求確認清單 -->
+  <section id="requirements" class="flow-section">
+    <div class="section-header">
+      <span class="section-num">📋</span>
+      <div>
+        <h2>功能需求確認清單</h2>
+        <p class="section-desc">共 28 項功能細節，請逐條選擇確認狀態並填寫意見，完成後點底部「寄送回覆」或「匯出回覆」。</p>
+      </div>
+    </div>
+    <div class="req-body">
+
+      <div class="req-group">
+        <div class="req-group-title">👤　人事類</div>
+        <div class="req-table-wrap"><table class="req-table">
+          <thead><tr><th style="width:42px">#</th><th style="width:72px">模組</th><th>待確認事項</th><th style="width:150px">業主確認</th><th style="width:72px">優先度</th><th style="width:200px">業主回覆 / 意見</th></tr></thead>
+          <tbody>
+            <tr><td class="req-no">1</td><td class="req-mod">M-01</td><td class="req-q">部門清單是否需要調整？<br><span class="req-note">現有：秘書處、教育訓練組、會務行政組、活動策展組</span></td><td class="req-sel"><select class="req-confirm" data-req="1"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="1"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="1"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">2</td><td class="req-mod">M-01</td><td class="req-q">是否需要「匯出 PDF 名冊」？<br><span class="req-note">目前僅支援 CSV 格式</span></td><td class="req-sel"><select class="req-confirm" data-req="2"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="2"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="2"></td></tr>
+            <tr><td class="req-no">3</td><td class="req-mod">M-01</td><td class="req-q">新員工初始密碼是否可由管理員自訂？<br><span class="req-note">目前預設密碼為 stsp@2026</span></td><td class="req-sel"><select class="req-confirm" data-req="3"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="3"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="3"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">4</td><td class="req-mod">M-02</td><td class="req-q">正式上班時間？<br><span class="req-note">目前系統基準：08:30，超過視為遲到</span></td><td class="req-sel"><select class="req-confirm" data-req="4"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="4"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="4"></td></tr>
+            <tr><td class="req-no">5</td><td class="req-mod">M-02</td><td class="req-q">正常下班時間？<br><span class="req-note">目前系統基準：17:30，超過視為加班</span></td><td class="req-sel"><select class="req-confirm" data-req="5"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="5"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="5"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">6</td><td class="req-mod">M-03</td><td class="req-q">出勤紀錄是否需要匯出 CSV / Excel？</td><td class="req-sel"><select class="req-confirm" data-req="6"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="6"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="6"></td></tr>
+            <tr><td class="req-no">7</td><td class="req-mod">M-04</td><td class="req-q">是否需要「出差申請」獨立類型？<br><span class="req-note">目前出差以「公假」處理</span></td><td class="req-sel"><select class="req-confirm" data-req="7"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="7"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="7"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">8</td><td class="req-mod">M-04</td><td class="req-q">是否需要支援「半日請假」（0.5 天）？</td><td class="req-sel"><select class="req-confirm" data-req="8"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="8"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="8"></td></tr>
+            <tr><td class="req-no">9</td><td class="req-mod">M-04</td><td class="req-q">特休天數是否要顯示剩餘天數？如是，計算規則為何？<br><span class="req-note">目前僅統計已使用天數</span></td><td class="req-sel"><select class="req-confirm" data-req="9"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="9"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="9"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">10</td><td class="req-mod">M-05</td><td class="req-q">審核駁回時，備註欄位是否為必填？</td><td class="req-sel"><select class="req-confirm" data-req="10"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="10"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="10"></td></tr>
+            <tr><td class="req-no">11</td><td class="req-mod">M-05</td><td class="req-q">是否需要 Email 通知申請人審核結果？<br><span class="req-note">目前需使用者主動查詢</span></td><td class="req-sel"><select class="req-confirm" data-req="11"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="11"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="11"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">12</td><td class="req-mod">M-06</td><td class="req-q">考核期間格式是否固定？<br><span class="req-note">半年 H1/H2 或每季 Q1-Q4</span></td><td class="req-sel"><select class="req-confirm" data-req="12"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="12"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="12"></td></tr>
+            <tr><td class="req-no">13</td><td class="req-mod">M-06</td><td class="req-q">是否需要「員工自評」欄位？<br><span class="req-note">讓員工先填自評，主管再評</span></td><td class="req-sel"><select class="req-confirm" data-req="13"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="13"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="13"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">14</td><td class="req-mod">M-07</td><td class="req-q">人事報表是否需要可切換「本月／本季／本年」？<br><span class="req-note">目前顯示全部資料</span></td><td class="req-sel"><select class="req-confirm" data-req="14"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="14"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="14"></td></tr>
+            <tr><td class="req-no">15</td><td class="req-mod">M-07</td><td class="req-q">是否需要特休餘額統計表？<br><span class="req-note">顯示每位員工剩餘特休天數</span></td><td class="req-sel"><select class="req-confirm" data-req="15"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="15"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="15"></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-title">💰　帳務類</div>
+        <div class="req-table-wrap"><table class="req-table">
+          <thead><tr><th style="width:42px">#</th><th style="width:72px">模組</th><th>待確認事項</th><th style="width:150px">業主確認</th><th style="width:72px">優先度</th><th style="width:200px">業主回覆 / 意見</th></tr></thead>
+          <tbody>
+            <tr><td class="req-no">16</td><td class="req-mod">M-08</td><td class="req-q">專案代碼命名格式是否固定？<br><span class="req-note">目前格式：PRJ/ASC/EXH-YYYY-NNN</span></td><td class="req-sel"><select class="req-confirm" data-req="16"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="16"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="16"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">17</td><td class="req-mod">M-09</td><td class="req-q">費用類別清單是否需要增減項目？<br><span class="req-note">目前共 16 個費用類別</span></td><td class="req-sel"><select class="req-confirm" data-req="17"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="17"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="17"></td></tr>
+            <tr><td class="req-no">18</td><td class="req-mod">M-09</td><td class="req-q">是否需要「發票號碼」必填？<br><span class="req-note">目前為選填</span></td><td class="req-sel"><select class="req-confirm" data-req="18"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="18"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="18"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">19</td><td class="req-mod">M-10</td><td class="req-q">財務報表是否需要依年度或月份篩選？<br><span class="req-note">目前顯示全部資料</span></td><td class="req-sel"><select class="req-confirm" data-req="19"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="19"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="19"></td></tr>
+            <tr><td class="req-no">20</td><td class="req-mod">M-10</td><td class="req-q">是否需要匯出財務報表（PDF 或 Excel）？</td><td class="req-sel"><select class="req-confirm" data-req="20"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="20"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="20"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">21</td><td class="req-mod">M-11</td><td class="req-q">預算警示門檻（70% / 90%）是否適合貴協會實際需求？</td><td class="req-sel"><select class="req-confirm" data-req="21"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="21"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="21"></td></tr>
+            <tr><td class="req-no">22</td><td class="req-mod">M-11</td><td class="req-q">預算期間是否為年度制，或需要支援季度預算？</td><td class="req-sel"><select class="req-confirm" data-req="22"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="22"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="22"></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-title">🛒　請購類</div>
+        <div class="req-table-wrap"><table class="req-table">
+          <thead><tr><th style="width:42px">#</th><th style="width:72px">模組</th><th>待確認事項</th><th style="width:150px">業主確認</th><th style="width:72px">優先度</th><th style="width:200px">業主回覆 / 意見</th></tr></thead>
+          <tbody>
+            <tr><td class="req-no">23</td><td class="req-mod">M-12</td><td class="req-q">請購金額是否需要分層核准門檻？<br><span class="req-note">如：小額由主管核准；大額需秘書長複核</span></td><td class="req-sel"><select class="req-confirm" data-req="23"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="23"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="23"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">24</td><td class="req-mod">M-12</td><td class="req-q">是否需要「請購單附件上傳」功能？<br><span class="req-note">如報價單、發票掃描</span></td><td class="req-sel"><select class="req-confirm" data-req="24"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="24"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="24"></td></tr>
+            <tr><td class="req-no">25</td><td class="req-mod">M-12</td><td class="req-q">駁回後，申請人是否可以修改後重新送出？</td><td class="req-sel"><select class="req-confirm" data-req="25"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="25"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="25"></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="req-group">
+        <div class="req-group-title">⚙️　系統通用</div>
+        <div class="req-table-wrap"><table class="req-table">
+          <thead><tr><th style="width:42px">#</th><th style="width:72px">模組</th><th>待確認事項</th><th style="width:150px">業主確認</th><th style="width:72px">優先度</th><th style="width:200px">業主回覆 / 意見</th></tr></thead>
+          <tbody>
+            <tr><td class="req-no">26</td><td class="req-mod">全系統</td><td class="req-q">是否需要「Email 通知」系統？<br><span class="req-note">審核結果、預算警示等自動通知</span></td><td class="req-sel"><select class="req-confirm" data-req="26"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="26"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="26"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">27</td><td class="req-mod">全系統</td><td class="req-q">是否需要「系統公告」功能？<br><span class="req-note">讓管理員發布全員通知</span></td><td class="req-sel"><select class="req-confirm" data-req="27"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="27"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="27"></td></tr>
+            <tr><td class="req-no">28</td><td class="req-mod">全系統</td><td class="req-q">資料保存年限？是否需要定期歸檔或清除舊資料的機制？</td><td class="req-sel"><select class="req-confirm" data-req="28"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="28"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="28"></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 各流程區塊 -->
+
+  <section id="overall" class="flow-section">
+    <div class="section-header">
+      <span class="section-num">1</span>
+      <div>
+        <h2>整體系統架構與角色導向</h2>
+        <p class="section-desc">使用者登入後，系統依據角色權限導向對應的功能模組入口。</p>
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <div class="mermaid">flowchart LR
+    LOGIN([🔐 使用者登入\n輸入 Email ＋ 密碼])
+    AUTH{身份驗證}
+    LOGIN --> AUTH
+    AUTH -- 失敗 --> LOGIN
+    AUTH -- 成功 --> ROLE{角色\n判斷}
+
+    ROLE --> sg_emp
+    ROLE --> sg_mgr
+    ROLE --> sg_hr
+    ROLE --> sg_fin
+    ROLE --> sg_adm
+
+    subgraph sg_emp [👤 一般員工]
+        direction TB
+        E1[打卡  M-02]
+        E2[個人出勤查詢  M-03]
+        E3[請假 ／ 加班申請  M-04]
+        E4[請購申請  M-12]
+    end
+
+    subgraph sg_mgr [👔 主管]
+        direction TB
+        M1[審核中心  M-05]
+        M2[績效考核  M-06]
+        M3[全員出勤查看  M-03]
+        M4[人事 ／ 財務報表  M-07 · M-10]
+        M5[請購審核  M-12]
+    end
+
+    subgraph sg_hr [👩‍💼 人資]
+        direction TB
+        H1[員工基本資料  M-01]
+        H2[審核申請  M-05]
+        H3[人事報表  M-07]
+    end
+
+    subgraph sg_fin [💰 財務]
+        direction TB
+        F1[專案財務  M-08]
+        F2[收支管理  M-09]
+        F3[財務報表  M-10]
+        F4[預算管理  M-11]
+        F5[請購付款確認  M-12]
+    end
+
+    subgraph sg_adm [🔧 系統管理員]
+        direction TB
+        A1[全功能存取]
+        A2[系統設定與帳號管理]
+    end
+
+    style LOGIN fill:#1E3A5F,color:#fff
+    style AUTH fill:#4A6FA5,color:#fff
+    style ROLE fill:#2C7873,color:#fff
+    style sg_emp fill:#EBF4FA,stroke:#4A6FA5,color:#1E3A5F
+    style sg_mgr fill:#E8F5E9,stroke:#2C7873,color:#1a4a1a
+    style sg_hr  fill:#FFF8E1,stroke:#F9A825,color:#5a3e00
+    style sg_fin fill:#F3E5F5,stroke:#8E24AA,color:#3d0050
+    style sg_adm fill:#FCE4EC,stroke:#C62828,color:#5a0010</div>
+    </div>
+    <div class="confirm-area">
+      <h3>✅ 流程確認表</h3>
+      
+    <table class="confirm-table">
+      <thead>
+        <tr>
+          <th>流程步驟</th>
+          <th>說明</th>
+          <th>業主確認</th>
+          <th>業主意見</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="step-name">使用者登入</td>
+          <td class="step-desc">輸入 Email 帳號與密碼進入系統</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="overall_s0" value="同意"> 同意</label>
+            <label><input type="radio" name="overall_s0" value="調整"> 需調整</label>
+            <label><input type="radio" name="overall_s0" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">身份驗證</td>
+          <td class="step-desc">系統驗證帳密，失敗則返回登入頁</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="overall_s1" value="同意"> 同意</label>
+            <label><input type="radio" name="overall_s1" value="調整"> 需調整</label>
+            <label><input type="radio" name="overall_s1" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">角色判斷</td>
+          <td class="step-desc">依角色（員工/主管/人資/財務/管理員）決定可見功能</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="overall_s2" value="同意"> 同意</label>
+            <label><input type="radio" name="overall_s2" value="調整"> 需調整</label>
+            <label><input type="radio" name="overall_s2" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">一般員工功能</td>
+          <td class="step-desc">打卡、請假申請、請購單、個人出勤查詢</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="overall_s3" value="同意"> 同意</label>
+            <label><input type="radio" name="overall_s3" value="調整"> 需調整</label>
+            <label><input type="radio" name="overall_s3" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">主管功能</td>
+          <td class="step-desc">審核中心、績效考核、全員出勤查看、報表</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="overall_s4" value="同意"> 同意</label>
+            <label><input type="radio" name="overall_s4" value="調整"> 需調整</label>
+            <label><input type="radio" name="overall_s4" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">人資功能</td>
+          <td class="step-desc">員工基本資料管理、人事報表</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="overall_s5" value="同意"> 同意</label>
+            <label><input type="radio" name="overall_s5" value="調整"> 需調整</label>
+            <label><input type="radio" name="overall_s5" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">財務功能</td>
+          <td class="step-desc">專案財務、收支管理、財務報表、預算管理、請購付款</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="overall_s6" value="同意"> 同意</label>
+            <label><input type="radio" name="overall_s6" value="調整"> 需調整</label>
+            <label><input type="radio" name="overall_s6" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">系統管理員</td>
+          <td class="step-desc">全功能存取含系統設定</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="overall_s7" value="同意"> 同意</label>
+            <label><input type="radio" name="overall_s7" value="調整"> 需調整</label>
+            <label><input type="radio" name="overall_s7" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="overall-comment">
+      <label>📝 本流程整體意見：</label>
+      <textarea placeholder="請輸入對此流程的整體建議或需要調整的地方…" rows="3"></textarea>
+    </div>
+    </div>
+  </section>
+
+  <section id="hr-attendance" class="flow-section">
+    <div class="section-header">
+      <span class="section-num">2</span>
+      <div>
+        <h2>人事差勤主流程（M-02 / M-03 / M-04 / M-05）</h2>
+        <p class="section-desc">涵蓋員工從打卡、出勤記錄、請假申請到主管審核的完整日常流程。</p>
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <div class="mermaid">flowchart TD
+    START([👤 員工開始上班]) --> CLOCK[上班打卡\nM-02]
+    CLOCK --> ATTEND[出勤紀錄自動產生\nM-03]
+    ATTEND --> WORK[工作中]
+
+    WORK --> NEED{需要提出申請?}
+
+    NEED -- 請假 --> APPLY_L[填寫請假申請\n選擇假別 / 起迄日期 / 事由\nM-04]
+    NEED -- 加班 --> APPLY_O[填寫加班申請\n填加班起迄時間\nM-04]
+    NEED -- 補卡 --> APPLY_C[填寫補卡申請\n填補卡時間\nM-04]
+    NEED -- 否 --> CLOCKOUT
+
+    APPLY_L --> SUBMIT[送出申請]
+    APPLY_O --> SUBMIT
+    APPLY_C --> SUBMIT
+
+    SUBMIT --> REVIEW[主管在審核中心審核\nM-05]
+    REVIEW --> RESULT{審核結果}
+
+    RESULT -- 核准\n請假 --> AUTO1[出勤狀態更新為「請假」]
+    RESULT -- 核准\n補卡 --> AUTO2[出勤紀錄補登]
+    RESULT -- 核准\n加班 --> AUTO3[加班時數累加]
+    RESULT -- 駁回 --> REJECT[主管填寫駁回原因\n員工收到通知]
+
+    AUTO1 --> CLOCKOUT([下班打卡 M-02])
+    AUTO2 --> CLOCKOUT
+    AUTO3 --> CLOCKOUT
+    REJECT --> CLOCKOUT
+
+    CLOCKOUT --> RECORD[出勤紀錄完整更新\nM-03]
+
+    style START fill:#1E3A5F,color:#fff
+    style CLOCKOUT fill:#1E3A5F,color:#fff
+    style RECORD fill:#2C7873,color:#fff
+    style AUTO1 fill:#D4EDDA
+    style AUTO2 fill:#D4EDDA
+    style AUTO3 fill:#D4EDDA
+    style REJECT fill:#F8D7DA</div>
+    </div>
+    <div class="confirm-area">
+      <h3>✅ 流程確認表</h3>
+      
+    <table class="confirm-table">
+      <thead>
+        <tr>
+          <th>流程步驟</th>
+          <th>說明</th>
+          <th>業主確認</th>
+          <th>業主意見</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="step-name">上班打卡</td>
+          <td class="step-desc">員工點擊打卡按鈕，系統記錄上班時間</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="hr-attendance_s0" value="同意"> 同意</label>
+            <label><input type="radio" name="hr-attendance_s0" value="調整"> 需調整</label>
+            <label><input type="radio" name="hr-attendance_s0" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">出勤紀錄自動產生</td>
+          <td class="step-desc">系統在 M-03 建立當日出勤記錄</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="hr-attendance_s1" value="同意"> 同意</label>
+            <label><input type="radio" name="hr-attendance_s1" value="調整"> 需調整</label>
+            <label><input type="radio" name="hr-attendance_s1" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">請假申請</td>
+          <td class="step-desc">填寫假別、起迄日期、事由後送出</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="hr-attendance_s2" value="同意"> 同意</label>
+            <label><input type="radio" name="hr-attendance_s2" value="調整"> 需調整</label>
+            <label><input type="radio" name="hr-attendance_s2" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">加班申請</td>
+          <td class="step-desc">事前填寫加班起迄時間後送出</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="hr-attendance_s3" value="同意"> 同意</label>
+            <label><input type="radio" name="hr-attendance_s3" value="調整"> 需調整</label>
+            <label><input type="radio" name="hr-attendance_s3" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">補卡申請</td>
+          <td class="step-desc">事後填寫補卡時間後送出</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="hr-attendance_s4" value="同意"> 同意</label>
+            <label><input type="radio" name="hr-attendance_s4" value="調整"> 需調整</label>
+            <label><input type="radio" name="hr-attendance_s4" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">主管審核</td>
+          <td class="step-desc">主管在審核中心 M-05 核准或駁回</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="hr-attendance_s5" value="同意"> 同意</label>
+            <label><input type="radio" name="hr-attendance_s5" value="調整"> 需調整</label>
+            <label><input type="radio" name="hr-attendance_s5" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">核准後自動更新出勤</td>
+          <td class="step-desc">依申請類型自動更新出勤狀態/時數</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="hr-attendance_s6" value="同意"> 同意</label>
+            <label><input type="radio" name="hr-attendance_s6" value="調整"> 需調整</label>
+            <label><input type="radio" name="hr-attendance_s6" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">駁回通知</td>
+          <td class="step-desc">駁回原因回饋給員工</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="hr-attendance_s7" value="同意"> 同意</label>
+            <label><input type="radio" name="hr-attendance_s7" value="調整"> 需調整</label>
+            <label><input type="radio" name="hr-attendance_s7" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">下班打卡</td>
+          <td class="step-desc">員工點擊下班打卡完成當日記錄</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="hr-attendance_s8" value="同意"> 同意</label>
+            <label><input type="radio" name="hr-attendance_s8" value="調整"> 需調整</label>
+            <label><input type="radio" name="hr-attendance_s8" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="overall-comment">
+      <label>📝 本流程整體意見：</label>
+      <textarea placeholder="請輸入對此流程的整體建議或需要調整的地方…" rows="3"></textarea>
+    </div>
+    </div>
+  </section>
+
+  <section id="m01" class="flow-section">
+    <div class="section-header">
+      <span class="section-num">3</span>
+      <div>
+        <h2>M-01 員工基本資料管理流程</h2>
+        <p class="section-desc">人資或管理員對員工主檔的新增、編輯、停用流程。所有模組的使用者身份均來自此主檔。</p>
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <div class="mermaid">flowchart TD
+    START([👩‍💼 人資 / 管理員]) --> ACTION{操作類型}
+
+    ACTION -- 新增員工 --> ADD1[填寫基本資料\n姓名 / 部門 / 職稱 / Email]
+    ADD1 --> ADD2[設定角色權限\n到職日期]
+    ADD2 --> ADD3[系統自動產生\n員工編號 EMP-YYYY-NNN\n初始密碼 stsp@2026]
+    ADD3 --> DONE1([✅ 員工帳號建立完成])
+
+    ACTION -- 編輯資料 --> EDIT[搜尋員工\n依部門 / 姓名 / 狀態]
+    EDIT --> EDIT2[修改欄位\n部門 / 職稱 / 聯絡方式 / 角色]
+    EDIT2 --> DONE2([✅ 資料更新完成])
+
+    ACTION -- 員工離職 --> OFFB[設定離職日期]
+    OFFB --> OFFB2[系統自動凍結登入權限\n在職狀態→離職]
+    OFFB2 --> DONE3([✅ 帳號停用完成])
+
+    ACTION -- 匯出名冊 --> EXP[條件篩選\n部門 / 在職狀態]
+    EXP --> EXP2[匯出 CSV 檔案\n可用 Excel 開啟]
+    EXP2 --> DONE4([✅ 名冊下載完成])
+
+    style START fill:#1E3A5F,color:#fff
+    style DONE1 fill:#D4EDDA
+    style DONE2 fill:#D4EDDA
+    style DONE3 fill:#D4EDDA
+    style DONE4 fill:#D4EDDA</div>
+    </div>
+    <div class="confirm-area">
+      <h3>✅ 流程確認表</h3>
+      
+    <table class="confirm-table">
+      <thead>
+        <tr>
+          <th>流程步驟</th>
+          <th>說明</th>
+          <th>業主確認</th>
+          <th>業主意見</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="step-name">新增員工</td>
+          <td class="step-desc">填寫基本資料後系統自動產生員工編號與初始密碼</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m01_s0" value="同意"> 同意</label>
+            <label><input type="radio" name="m01_s0" value="調整"> 需調整</label>
+            <label><input type="radio" name="m01_s0" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">設定角色權限</td>
+          <td class="step-desc">指定一般員工/主管/人資/財務/管理員</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m01_s1" value="同意"> 同意</label>
+            <label><input type="radio" name="m01_s1" value="調整"> 需調整</label>
+            <label><input type="radio" name="m01_s1" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">編輯員工資料</td>
+          <td class="step-desc">依部門或姓名搜尋後修改欄位</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m01_s2" value="同意"> 同意</label>
+            <label><input type="radio" name="m01_s2" value="調整"> 需調整</label>
+            <label><input type="radio" name="m01_s2" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">員工離職停用</td>
+          <td class="step-desc">設定離職日期後系統自動凍結登入</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m01_s3" value="同意"> 同意</label>
+            <label><input type="radio" name="m01_s3" value="調整"> 需調整</label>
+            <label><input type="radio" name="m01_s3" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">匯出員工名冊</td>
+          <td class="step-desc">篩選後匯出 CSV 格式名冊</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m01_s4" value="同意"> 同意</label>
+            <label><input type="radio" name="m01_s4" value="調整"> 需調整</label>
+            <label><input type="radio" name="m01_s4" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="overall-comment">
+      <label>📝 本流程整體意見：</label>
+      <textarea placeholder="請輸入對此流程的整體建議或需要調整的地方…" rows="3"></textarea>
+    </div>
+    </div>
+  </section>
+
+  <section id="m04-m05" class="flow-section">
+    <div class="section-header">
+      <span class="section-num">4</span>
+      <div>
+        <h2>M-04 請假申請 × M-05 審核中心 詳細流程</h2>
+        <p class="section-desc">員工提出申請後的完整狀態流轉，包含各申請類型的分支與核准後自動動作。</p>
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <div class="mermaid">flowchart TD
+    EMP([👤 員工]) --> FORM[填寫申請表單 M-04]
+    FORM --> TYPE{申請類型}
+
+    TYPE -- 請假 --> L1[選擇假別\n特休/病假/事假/補休/產假/公假]
+    L1 --> L2[填寫起迄日期\n及事由說明]
+
+    TYPE -- 加班申請 --> O1[填寫加班日期\n及起迄時間]
+
+    TYPE -- 補卡申請 --> C1[填寫補卡日期\n及補卡時間]
+
+    L2 --> SUBMIT[送出申請\n狀態：審核中]
+    O1 --> SUBMIT
+    C1 --> SUBMIT
+
+    SUBMIT --> MGR([👔 主管開啟審核中心 M-05])
+    MGR --> VIEW[查看申請卡片\n申請人/類型/期間/事由]
+    VIEW --> DECISION{審核決定}
+
+    DECISION -- 核准 --> APP[點擊「核准」]
+    APP --> AUTO{申請類型}
+    AUTO -- 請假 --> A1[✅ 出勤狀態\n更新為「請假」]
+    AUTO -- 補卡 --> A2[✅ 出勤紀錄\n自動補登]
+    AUTO -- 加班 --> A3[✅ 加班時數\n自動累加]
+
+    DECISION -- 駁回 --> REJ[填寫駁回原因]
+    REJ --> NOTIFY[狀態：已駁回\n員工收到結果]
+
+    A1 --> END([📋 流程結束])
+    A2 --> END
+    A3 --> END
+    NOTIFY --> END
+
+    style EMP fill:#1E3A5F,color:#fff
+    style MGR fill:#4A6FA5,color:#fff
+    style A1 fill:#D4EDDA
+    style A2 fill:#D4EDDA
+    style A3 fill:#D4EDDA
+    style NOTIFY fill:#F8D7DA
+    style END fill:#2C7873,color:#fff</div>
+    </div>
+    <div class="confirm-area">
+      <h3>✅ 流程確認表</h3>
+      
+    <table class="confirm-table">
+      <thead>
+        <tr>
+          <th>流程步驟</th>
+          <th>說明</th>
+          <th>業主確認</th>
+          <th>業主意見</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="step-name">填寫申請表單</td>
+          <td class="step-desc">員工選擇申請類型（請假/加班/補卡）</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m04-m05_s0" value="同意"> 同意</label>
+            <label><input type="radio" name="m04-m05_s0" value="調整"> 需調整</label>
+            <label><input type="radio" name="m04-m05_s0" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">請假 – 選擇假別</td>
+          <td class="step-desc">特休/病假/事假/補休/產假/公假</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m04-m05_s1" value="同意"> 同意</label>
+            <label><input type="radio" name="m04-m05_s1" value="調整"> 需調整</label>
+            <label><input type="radio" name="m04-m05_s1" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">請假 – 填起迄日期與事由</td>
+          <td class="step-desc"></td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m04-m05_s2" value="同意"> 同意</label>
+            <label><input type="radio" name="m04-m05_s2" value="調整"> 需調整</label>
+            <label><input type="radio" name="m04-m05_s2" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">加班申請 – 填起迄時間</td>
+          <td class="step-desc"></td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m04-m05_s3" value="同意"> 同意</label>
+            <label><input type="radio" name="m04-m05_s3" value="調整"> 需調整</label>
+            <label><input type="radio" name="m04-m05_s3" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">補卡申請 – 填補卡時間</td>
+          <td class="step-desc"></td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m04-m05_s4" value="同意"> 同意</label>
+            <label><input type="radio" name="m04-m05_s4" value="調整"> 需調整</label>
+            <label><input type="radio" name="m04-m05_s4" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">送出申請（狀態：審核中）</td>
+          <td class="step-desc">申請進入待審核佇列</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m04-m05_s5" value="同意"> 同意</label>
+            <label><input type="radio" name="m04-m05_s5" value="調整"> 需調整</label>
+            <label><input type="radio" name="m04-m05_s5" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">主管查看審核中心</td>
+          <td class="step-desc">看到申請卡片含所有申請資訊</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m04-m05_s6" value="同意"> 同意</label>
+            <label><input type="radio" name="m04-m05_s6" value="調整"> 需調整</label>
+            <label><input type="radio" name="m04-m05_s6" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">核准</td>
+          <td class="step-desc">自動觸發對應的出勤更新</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m04-m05_s7" value="同意"> 同意</label>
+            <label><input type="radio" name="m04-m05_s7" value="調整"> 需調整</label>
+            <label><input type="radio" name="m04-m05_s7" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">駁回並填寫原因</td>
+          <td class="step-desc">員工收到駁回通知</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m04-m05_s8" value="同意"> 同意</label>
+            <label><input type="radio" name="m04-m05_s8" value="調整"> 需調整</label>
+            <label><input type="radio" name="m04-m05_s8" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">出勤狀態自動更新</td>
+          <td class="step-desc">依申請類型執行對應自動化動作</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m04-m05_s9" value="同意"> 同意</label>
+            <label><input type="radio" name="m04-m05_s9" value="調整"> 需調整</label>
+            <label><input type="radio" name="m04-m05_s9" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="overall-comment">
+      <label>📝 本流程整體意見：</label>
+      <textarea placeholder="請輸入對此流程的整體建議或需要調整的地方…" rows="3"></textarea>
+    </div>
+    </div>
+  </section>
+
+  <section id="m06" class="flow-section">
+    <div class="section-header">
+      <span class="section-num">5</span>
+      <div>
+        <h2>M-06 績效考核流程</h2>
+        <p class="section-desc">主管對員工進行四維度定期評核，系統自動計算評等後由管理層確認定案。</p>
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <div class="mermaid">flowchart TD
+    START([👔 主管開始評核]) --> SEL[選擇考核對象\n從員工主檔選取]
+    SEL --> PERIOD[設定考核期間\n如：2026-H1 / 2026-Q2]
+    PERIOD --> SCORE[填寫四項評分 0-100 分\n工作品質 / 工作效率 / 團隊合作 / 創新貢獻]
+    SCORE --> CALC[系統自動計算四項均分\n判定評等]
+
+    CALC --> GRADE{評等}
+    GRADE -- 均分 ≥ 90 --> G1[🏆 優異]
+    GRADE -- 75–89 --> G2[👍 良好]
+    GRADE -- 60–74 --> G3[📋 普通]
+    GRADE -- < 60 --> G4[⚠️ 需改進]
+
+    G1 --> CMT[填寫綜合評語\n選填]
+    G2 --> CMT
+    G3 --> CMT
+    G4 --> CMT
+
+    CMT --> DRAFT{存為草稿\n或直接送出?}
+    DRAFT -- 存草稿 --> SAVE[狀態：草稿\n可繼續修改]
+    SAVE --> CMT
+    DRAFT -- 送出 --> SENT[狀態：已送出\n等待管理層確認]
+
+    SENT --> ADMIN([🔧 管理層確認])
+    ADMIN --> FINAL[狀態：已確認\n考核定案]
+    FINAL --> VIEW[員工可查看\n本次及歷次考核結果]
+
+    style START fill:#1E3A5F,color:#fff
+    style ADMIN fill:#4A6FA5,color:#fff
+    style G1 fill:#D4EDDA
+    style G2 fill:#D4EDDA
+    style G3 fill:#FFF9C4
+    style G4 fill:#F8D7DA
+    style FINAL fill:#2C7873,color:#fff</div>
+    </div>
+    <div class="confirm-area">
+      <h3>✅ 流程確認表</h3>
+      
+    <table class="confirm-table">
+      <thead>
+        <tr>
+          <th>流程步驟</th>
+          <th>說明</th>
+          <th>業主確認</th>
+          <th>業主意見</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="step-name">選擇考核對象</td>
+          <td class="step-desc">從員工主檔選取被考核員工</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m06_s0" value="同意"> 同意</label>
+            <label><input type="radio" name="m06_s0" value="調整"> 需調整</label>
+            <label><input type="radio" name="m06_s0" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">設定考核期間</td>
+          <td class="step-desc">如：2026-H1、2026-Q1（可自訂格式）</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m06_s1" value="同意"> 同意</label>
+            <label><input type="radio" name="m06_s1" value="調整"> 需調整</label>
+            <label><input type="radio" name="m06_s1" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">填寫四項評分</td>
+          <td class="step-desc">工作品質、工作效率、團隊合作、創新貢獻（各 0-100 分）</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m06_s2" value="同意"> 同意</label>
+            <label><input type="radio" name="m06_s2" value="調整"> 需調整</label>
+            <label><input type="radio" name="m06_s2" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">系統自動計算評等</td>
+          <td class="step-desc">優異 ≥90 / 良好 75-89 / 普通 60-74 / 需改進 <60</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m06_s3" value="同意"> 同意</label>
+            <label><input type="radio" name="m06_s3" value="調整"> 需調整</label>
+            <label><input type="radio" name="m06_s3" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">填寫綜合評語</td>
+          <td class="step-desc">主管整體評價（選填）</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m06_s4" value="同意"> 同意</label>
+            <label><input type="radio" name="m06_s4" value="調整"> 需調整</label>
+            <label><input type="radio" name="m06_s4" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">送出考核</td>
+          <td class="step-desc">進入「已送出」等待管理層確認</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m06_s5" value="同意"> 同意</label>
+            <label><input type="radio" name="m06_s5" value="調整"> 需調整</label>
+            <label><input type="radio" name="m06_s5" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">管理層確認定案</td>
+          <td class="step-desc">確認後狀態改為「已確認」</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m06_s6" value="同意"> 同意</label>
+            <label><input type="radio" name="m06_s6" value="調整"> 需調整</label>
+            <label><input type="radio" name="m06_s6" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">員工查看結果</td>
+          <td class="step-desc">員工可查看本次及歷次考核紀錄</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m06_s7" value="同意"> 同意</label>
+            <label><input type="radio" name="m06_s7" value="調整"> 需調整</label>
+            <label><input type="radio" name="m06_s7" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="overall-comment">
+      <label>📝 本流程整體意見：</label>
+      <textarea placeholder="請輸入對此流程的整體建議或需要調整的地方…" rows="3"></textarea>
+    </div>
+    </div>
+  </section>
+
+  <section id="finance" class="flow-section">
+    <div class="section-header">
+      <span class="section-num">6</span>
+      <div>
+        <h2>帳務模組整合流程（M-08 / M-09 / M-10 / M-11）</h2>
+        <p class="section-desc">從專案建立、預算設定、收支記錄到財務報表的完整帳務管理流程。</p>
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <div class="mermaid">flowchart TD
+    CREATE([💼 財務人員]) --> PROJ[建立專案 M-08\n填寫代碼/名稱/類別/核定預算]
+    PROJ --> BUD[設定預算項目 M-11\n各費用類別的預算上限]
+    BUD --> ACTIVE[專案進行中]
+
+    ACTIVE --> TX{收支類型}
+    TX -- 收入 --> IN[記錄收入 M-09\n政府補助/攤位費/贊助等]
+    TX -- 支出 --> OUT[記錄支出 M-09\n人事/場地/委外/教材等]
+    TX -- 請購付款 --> PO[請購單標記已付款 M-12\n自動計入支出 M-09]
+
+    IN --> CHECK[即時更新專案損益]
+    OUT --> CHECK
+    PO --> CHECK
+
+    CHECK --> WARN{預算使用率}
+    WARN -- < 70% --> W1[🟢 正常\n無需操作]
+    WARN -- 70–89% --> W2[🟡 黃色警示\n建議控制支出]
+    WARN -- ≥ 90% --> W3[🔴 橘紅警示\n需提出預算調整]
+
+    W1 --> REPORT[財務報表 M-10]
+    W2 --> REPORT
+    W3 --> REPORT
+
+    REPORT --> CHART1[類別損益對比長條圖\n會務 / 計畫專案 / 展會]
+    REPORT --> CHART2[支出類別環形圖]
+    REPORT --> CHART3[專案損益排行]
+
+    style CREATE fill:#1E3A5F,color:#fff
+    style W1 fill:#D4EDDA
+    style W2 fill:#FFF9C4
+    style W3 fill:#F8D7DA
+    style REPORT fill:#2C7873,color:#fff</div>
+    </div>
+    <div class="confirm-area">
+      <h3>✅ 流程確認表</h3>
+      
+    <table class="confirm-table">
+      <thead>
+        <tr>
+          <th>流程步驟</th>
+          <th>說明</th>
+          <th>業主確認</th>
+          <th>業主意見</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="step-name">建立專案（M-08）</td>
+          <td class="step-desc">填寫專案代碼、名稱、財務類別（會務/計畫專案/展會）、核定預算</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="finance_s0" value="同意"> 同意</label>
+            <label><input type="radio" name="finance_s0" value="調整"> 需調整</label>
+            <label><input type="radio" name="finance_s0" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">設定預算項目（M-11）</td>
+          <td class="step-desc">設定各費用類別的預算上限與警示門檻</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="finance_s1" value="同意"> 同意</label>
+            <label><input type="radio" name="finance_s1" value="調整"> 需調整</label>
+            <label><input type="radio" name="finance_s1" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">記錄收入（M-09）</td>
+          <td class="step-desc">政府補助、攤位費、贊助、學員費等</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="finance_s2" value="同意"> 同意</label>
+            <label><input type="radio" name="finance_s2" value="調整"> 需調整</label>
+            <label><input type="radio" name="finance_s2" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">記錄支出（M-09）</td>
+          <td class="step-desc">人事、場地、委外、講師、教材等費用</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="finance_s3" value="同意"> 同意</label>
+            <label><input type="radio" name="finance_s3" value="調整"> 需調整</label>
+            <label><input type="radio" name="finance_s3" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">請購付款自動入帳（M-12→M-09）</td>
+          <td class="step-desc">財務標記已付款後自動新增支出記錄</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="finance_s4" value="同意"> 同意</label>
+            <label><input type="radio" name="finance_s4" value="調整"> 需調整</label>
+            <label><input type="radio" name="finance_s4" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">即時損益計算</td>
+          <td class="step-desc">每筆交易後自動更新專案損益</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="finance_s5" value="同意"> 同意</label>
+            <label><input type="radio" name="finance_s5" value="調整"> 需調整</label>
+            <label><input type="radio" name="finance_s5" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">預算使用率警示</td>
+          <td class="step-desc">綠/黃/橘紅三色警示</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="finance_s6" value="同意"> 同意</label>
+            <label><input type="radio" name="finance_s6" value="調整"> 需調整</label>
+            <label><input type="radio" name="finance_s6" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">財務報表（M-10）</td>
+          <td class="step-desc">損益對比長條圖、支出環形圖、專案排行</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="finance_s7" value="同意"> 同意</label>
+            <label><input type="radio" name="finance_s7" value="調整"> 需調整</label>
+            <label><input type="radio" name="finance_s7" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="overall-comment">
+      <label>📝 本流程整體意見：</label>
+      <textarea placeholder="請輸入對此流程的整體建議或需要調整的地方…" rows="3"></textarea>
+    </div>
+    </div>
+  </section>
+
+  <section id="m12" class="flow-section">
+    <div class="section-header">
+      <span class="section-num">7</span>
+      <div>
+        <h2>M-12 請購單完整流程</h2>
+        <p class="section-desc">從員工提出採購需求到財務付款完成，付款後自動計入收支並更新專案財務。</p>
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <div class="mermaid">flowchart TD
+    EMP([👤 員工]) --> FILL[填寫請購單\n採購品項 / 費用類別 / 關聯專案 / 採購目的]
+    FILL --> ITEMS[新增採購品項\n品項名稱 / 數量 / 單價 → 小計自動計算]
+    ITEMS --> TOTAL[預估總金額自動加總]
+    TOTAL --> DRAFT{儲存草稿\n或送出?}
+    DRAFT -- 存草稿 --> SAVE[狀態：草稿\n可繼續修改]
+    SAVE --> FILL
+    DRAFT -- 送出 --> PENDING[狀態：待審核]
+
+    PENDING --> MGR([👔 主管審核])
+    MGR --> RESULT{審核結果}
+
+    RESULT -- 核准 --> APPROVED[狀態：已核准]
+    RESULT -- 駁回 --> REJECTED[狀態：已駁回\n填寫駁回原因]
+
+    REJECTED --> REAPPLY{申請人\n重新提出?}
+    REAPPLY -- 是 --> FILL
+    REAPPLY -- 否 --> END1([❌ 流程結束])
+
+    APPROVED --> FIN([💰 財務人員確認])
+    FIN --> PAY[執行付款]
+    PAY --> PAID[狀態：已付款]
+
+    PAID --> AUTO1[系統自動建立支出記錄\nM-09 收支管理]
+    AUTO1 --> AUTO2[專案損益即時更新\nM-08 專案財務]
+    AUTO2 --> AUTO3[預算使用率更新\nM-11 預算管理]
+    AUTO3 --> END2([✅ 流程完成])
+
+    style EMP fill:#1E3A5F,color:#fff
+    style MGR fill:#4A6FA5,color:#fff
+    style FIN fill:#2C7873,color:#fff
+    style APPROVED fill:#D4EDDA
+    style REJECTED fill:#F8D7DA
+    style AUTO1 fill:#D4EDDA
+    style AUTO2 fill:#D4EDDA
+    style AUTO3 fill:#D4EDDA
+    style END2 fill:#2C7873,color:#fff</div>
+    </div>
+    <div class="confirm-area">
+      <h3>✅ 流程確認表</h3>
+      
+    <table class="confirm-table">
+      <thead>
+        <tr>
+          <th>流程步驟</th>
+          <th>說明</th>
+          <th>業主確認</th>
+          <th>業主意見</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="step-name">填寫請購單</td>
+          <td class="step-desc">選擇財務類別、費用類別、關聯專案、填寫採購目的</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m12_s0" value="同意"> 同意</label>
+            <label><input type="radio" name="m12_s0" value="調整"> 需調整</label>
+            <label><input type="radio" name="m12_s0" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">新增採購品項</td>
+          <td class="step-desc">品項名稱、數量、單價，系統自動計算小計與總金額</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m12_s1" value="同意"> 同意</label>
+            <label><input type="radio" name="m12_s1" value="調整"> 需調整</label>
+            <label><input type="radio" name="m12_s1" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">儲存草稿</td>
+          <td class="step-desc">可暫存草稿後繼續修改</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m12_s2" value="同意"> 同意</label>
+            <label><input type="radio" name="m12_s2" value="調整"> 需調整</label>
+            <label><input type="radio" name="m12_s2" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">送出申請（待審核）</td>
+          <td class="step-desc">提交後進入主管待審核佇列</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m12_s3" value="同意"> 同意</label>
+            <label><input type="radio" name="m12_s3" value="調整"> 需調整</label>
+            <label><input type="radio" name="m12_s3" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">主管審核</td>
+          <td class="step-desc">主管在審核中心核准或駁回</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m12_s4" value="同意"> 同意</label>
+            <label><input type="radio" name="m12_s4" value="調整"> 需調整</label>
+            <label><input type="radio" name="m12_s4" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">駁回後重新提出</td>
+          <td class="step-desc">申請人可修改後重新送出</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m12_s5" value="同意"> 同意</label>
+            <label><input type="radio" name="m12_s5" value="調整"> 需調整</label>
+            <label><input type="radio" name="m12_s5" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">財務執行付款</td>
+          <td class="step-desc">財務確認核准後執行實際付款</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m12_s6" value="同意"> 同意</label>
+            <label><input type="radio" name="m12_s6" value="調整"> 需調整</label>
+            <label><input type="radio" name="m12_s6" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">標記已付款</td>
+          <td class="step-desc">狀態改為「已付款」</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m12_s7" value="同意"> 同意</label>
+            <label><input type="radio" name="m12_s7" value="調整"> 需調整</label>
+            <label><input type="radio" name="m12_s7" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">自動建立收支記錄（M-09）</td>
+          <td class="step-desc">自動新增一筆支出明細</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m12_s8" value="同意"> 同意</label>
+            <label><input type="radio" name="m12_s8" value="調整"> 需調整</label>
+            <label><input type="radio" name="m12_s8" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">專案損益與預算更新</td>
+          <td class="step-desc">M-08、M-11 即時反映</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m12_s9" value="同意"> 同意</label>
+            <label><input type="radio" name="m12_s9" value="調整"> 需調整</label>
+            <label><input type="radio" name="m12_s9" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="overall-comment">
+      <label>📝 本流程整體意見：</label>
+      <textarea placeholder="請輸入對此流程的整體建議或需要調整的地方…" rows="3"></textarea>
+    </div>
+    </div>
+  </section>
+
+  <section id="cross-module" class="flow-section">
+    <div class="section-header">
+      <span class="section-num">8</span>
+      <div>
+        <h2>跨模組自動化整合流程</h2>
+        <p class="section-desc">系統內各模組之間的自動化串聯邏輯，核准一個申請後系統自動完成對應動作，不需要人工重複輸入。</p>
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <div class="mermaid">flowchart LR
+    subgraph 人事申請模組
+        direction TB
+        L1[請假申請\n主管核准]
+        L2[補卡申請\n主管核准]
+        L3[加班申請\n主管核准]
+    end
+
+    subgraph 出勤紀錄模組 M-03
+        direction TB
+        R1[出勤狀態\n更新為「請假」]
+        R2[出勤紀錄\n自動補登]
+        R3[加班時數\n自動累加]
+    end
+
+    subgraph 請購模組
+        direction TB
+        P1[請購單\n財務標記已付款]
+    end
+
+    subgraph 帳務模組
+        direction TB
+        P2[收支管理\n自動建立支出記錄\nM-09]
+        P3[專案財務\n損益即時更新\nM-08]
+        P4[預算管理\n使用率更新\nM-11]
+    end
+
+    L1 -- 自動 --> R1
+    L2 -- 自動 --> R2
+    L3 -- 自動 --> R3
+    P1 -- 自動 --> P2
+    P2 -- 自動 --> P3
+    P2 -- 自動 --> P4
+
+    style L1 fill:#EBF4FA
+    style L2 fill:#EBF4FA
+    style L3 fill:#EBF4FA
+    style R1 fill:#D4EDDA
+    style R2 fill:#D4EDDA
+    style R3 fill:#D4EDDA
+    style P1 fill:#FFF9C4
+    style P2 fill:#D4EDDA
+    style P3 fill:#D4EDDA
+    style P4 fill:#D4EDDA</div>
+    </div>
+    <div class="confirm-area">
+      <h3>✅ 流程確認表</h3>
+      
+    <table class="confirm-table">
+      <thead>
+        <tr>
+          <th>流程步驟</th>
+          <th>說明</th>
+          <th>業主確認</th>
+          <th>業主意見</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="step-name">請假申請核准 → 出勤狀態更新</td>
+          <td class="step-desc">對應日期自動標記為「請假」</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="cross-module_s0" value="同意"> 同意</label>
+            <label><input type="radio" name="cross-module_s0" value="調整"> 需調整</label>
+            <label><input type="radio" name="cross-module_s0" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">補卡申請核准 → 出勤記錄補登</td>
+          <td class="step-desc">依補卡時間自動建立或更新出勤記錄</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="cross-module_s1" value="同意"> 同意</label>
+            <label><input type="radio" name="cross-module_s1" value="調整"> 需調整</label>
+            <label><input type="radio" name="cross-module_s1" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">加班申請核准 → 加班時數累加</td>
+          <td class="step-desc">自動更新當日加班時數</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="cross-module_s2" value="同意"> 同意</label>
+            <label><input type="radio" name="cross-module_s2" value="調整"> 需調整</label>
+            <label><input type="radio" name="cross-module_s2" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">請購付款 → 收支自動入帳（M-09）</td>
+          <td class="step-desc">自動建立支出明細，不需財務另行輸入</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="cross-module_s3" value="同意"> 同意</label>
+            <label><input type="radio" name="cross-module_s3" value="調整"> 需調整</label>
+            <label><input type="radio" name="cross-module_s3" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">收支入帳 → 專案損益更新（M-08）</td>
+          <td class="step-desc">損益與預算使用率即時反映</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="cross-module_s4" value="同意"> 同意</label>
+            <label><input type="radio" name="cross-module_s4" value="調整"> 需調整</label>
+            <label><input type="radio" name="cross-module_s4" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">收支入帳 → 預算使用率更新（M-11）</td>
+          <td class="step-desc">自動觸發預算警示顏色更新</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="cross-module_s5" value="同意"> 同意</label>
+            <label><input type="radio" name="cross-module_s5" value="調整"> 需調整</label>
+            <label><input type="radio" name="cross-module_s5" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="overall-comment">
+      <label>📝 本流程整體意見：</label>
+      <textarea placeholder="請輸入對此流程的整體建議或需要調整的地方…" rows="3"></textarea>
+    </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- 底部操作列 -->
+<div id="action-bar">
+  <span id="save-indicator">尚未填寫任何資料</span>
+  <span id="progress-indicator"></span>
+  <button class="action-btn" id="btn-export">📥 匯出回覆</button>
+  <button class="action-btn" id="btn-copy" style="background:#2C7873;color:#fff;">📋 複製回覆</button>
+  <button class="action-btn" id="btn-clear">🗑 清除所有填寫</button>
+</div>
+
+<!-- 全螢幕 Modal -->
+<div id="chart-modal">
+  <div id="modal-inner">
+    <div id="modal-header">
+      <span id="modal-title">流程圖</span>
+      <button id="modal-close" title="關閉 (Esc)">✕</button>
+    </div>
+    <div id="modal-body"></div>
+    <div id="modal-zoom-bar">
+      <button class="zoom-btn" id="mz-out">－ 縮小</button>
+      <span class="zoom-level" id="mz-level">100%</span>
+      <button class="zoom-btn" id="mz-in">＋ 放大</button>
+      <button class="zoom-btn" id="mz-reset">⊙ 重置</button>
+      <span id="modal-hint">滾輪也可縮放 · Esc 關閉</span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+
+  /* ── 側邊欄收合 ── */
+  var sidebar = document.getElementById('sidebar');
+  var toggleBtn = document.getElementById('sidebar-toggle');
+  var isOpen = true;
+  document.body.classList.add('sidebar-open');
+
+  toggleBtn.onclick = function () {
+    isOpen = !isOpen;
+    sidebar.classList.toggle('collapsed', !isOpen);
+    document.body.classList.toggle('sidebar-open', isOpen);
+    document.body.classList.toggle('sidebar-closed', !isOpen);
+    toggleBtn.textContent = isOpen ? '‹' : '›';
+    toggleBtn.title = isOpen ? '收合選單' : '展開選單';
+  };
+
+  /* ── 等 Mermaid 渲染完成後初始化 ── */
+  function init() {
+    document.querySelectorAll('.chart-wrapper').forEach(function (wrapper) {
+      const orig = wrapper.querySelector('.mermaid');
+      if (!orig || wrapper.dataset.zoomReady) return;
+      wrapper.dataset.zoomReady = '1';
+
+      /* SVG 填滿寬度 */
+      const svg = orig.querySelector('svg');
+      if (svg) {
+        svg.setAttribute('width', '100%');
+        svg.style.height = 'auto';
+      }
+
+      /* 把 mermaid 包進 chart-inner（用於縮放） */
+      const inner = document.createElement('div');
+      inner.className = 'chart-inner';
+      wrapper.replaceChild(inner, orig);
+      inner.appendChild(orig);
+
+      const title = wrapper.closest('.flow-section')
+                      ?.querySelector('h2')?.textContent || '流程圖';
+
+      /* 工具列（精簡版） */
+      const toolbar = document.createElement('div');
+      toolbar.className = 'zoom-toolbar';
+      toolbar.innerHTML =
+        '<button class="zoom-btn" data-d="-0.15">－</button>' +
+        '<span class="zoom-level">100%</span>' +
+        '<button class="zoom-btn" data-d="0.15">＋</button>' +
+        '<button class="zoom-btn" data-reset style="margin-left:4px">重置</button>' +
+        '<button class="zoom-btn" data-fs style="margin-left:auto">⛶ 全螢幕</button>';
+      wrapper.insertBefore(toolbar, inner);
+
+      let scale = 1;
+
+      function applyScale(s) {
+        scale = Math.min(5, Math.max(0.3, s));
+        inner.style.transform = 'scale(' + scale + ')';
+        inner.style.transformOrigin = 'top left';
+        /* 撐高容器避免重疊 */
+        const sv = inner.querySelector('svg');
+        if (sv) {
+          const rect = sv.getBoundingClientRect();
+          wrapper.style.minHeight = (rect.height * scale + 48) + 'px';
+        }
+        toolbar.querySelector('.zoom-level').textContent = Math.round(scale * 100) + '%';
+      }
+
+      toolbar.querySelector('[data-d="-0.15"]').onclick = function () { applyScale(scale - 0.15); };
+      toolbar.querySelector('[data-d="0.15"]').onclick  = function () { applyScale(scale + 0.15); };
+      toolbar.querySelector('[data-reset]').onclick     = function () { applyScale(1); wrapper.style.minHeight = ''; };
+      toolbar.querySelector('[data-fs]').onclick        = function () { openModal(title, inner.querySelector('svg')); };
+    });
+  }
+
+  /* 輪詢直到 mermaid SVG 出現 */
+  var tries = 0;
+  var poll = setInterval(function () {
+    if (document.querySelector('.mermaid svg') || ++tries > 40) {
+      clearInterval(poll);
+      setTimeout(init, 300);
+    }
+  }, 300);
+
+  /* ── 全螢幕 Modal ── */
+  var modalScale = 1;
+
+  function openModal(title, svg) {
+    if (!svg) return;
+    document.getElementById('modal-title').textContent = title;
+    var body = document.getElementById('modal-body');
+    body.innerHTML = '';
+    /* clone SVG 並放大顯示 */
+    var clone = svg.cloneNode(true);
+    clone.style.width  = '100%';
+    clone.style.height = 'auto';
+    clone.style.maxWidth = 'none';
+    body.appendChild(clone);
+    modalScale = 1;
+    applyModalScale(1);
+    document.getElementById('chart-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function applyModalScale(s) {
+    modalScale = Math.min(5, Math.max(0.3, s));
+    var svg = document.querySelector('#modal-body svg');
+    if (svg) svg.style.transform = 'scale(' + modalScale + ')';
+    document.getElementById('mz-level').textContent = Math.round(modalScale * 100) + '%';
+  }
+
+  function closeModal() {
+    document.getElementById('chart-modal').classList.remove('open');
+    document.body.style.overflow = '';
+    applyModalScale(1);
+  }
+
+  document.getElementById('modal-close').onclick = closeModal;
+  document.getElementById('chart-modal').onclick = function (e) {
+    if (e.target === this) closeModal();
+  };
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  document.getElementById('mz-in').onclick    = function () { applyModalScale(modalScale + 0.25); };
+  document.getElementById('mz-out').onclick   = function () { applyModalScale(modalScale - 0.25); };
+  document.getElementById('mz-reset').onclick = function () { applyModalScale(1); };
+
+  /* 滾輪縮放（Modal 內） */
+  document.getElementById('modal-body').addEventListener('wheel', function (e) {
+    e.preventDefault();
+    applyModalScale(modalScale + (e.deltaY < 0 ? 0.1 : -0.1));
+  }, { passive: false });
+})();
+</script>
+
+<!-- ════ 自動儲存 ／ 匯出系統 ════ -->
+<script>
+(function () {
+  var STORAGE_KEY = 'stsp_review_v1';
+  var saveTimer = null;
+
+  /* ── 收集所有表單值 ── */
+  function collectData() {
+    var data = { radios: {}, texts: [], areas: [] };
+
+    document.querySelectorAll('input[type="radio"]').forEach(function (r) {
+      if (r.checked) data.radios[r.name] = r.value;
+    });
+    document.querySelectorAll('.req-confirm').forEach(function (s) {
+      data.reqConfirm = data.reqConfirm || {};
+      data.reqConfirm[s.dataset.req] = s.value;
+    });
+    document.querySelectorAll('.req-priority').forEach(function (s) {
+      data.reqPriority = data.reqPriority || {};
+      data.reqPriority[s.dataset.req] = s.value;
+    });
+    document.querySelectorAll('input.comment-input').forEach(function (inp) {
+      data.texts.push(inp.value);
+    });
+    document.querySelectorAll('.overall-comment textarea').forEach(function (ta) {
+      data.areas.push(ta.value);
+    });
+    return data;
+  }
+
+  /* ── 還原所有表單值 ── */
+  function applyData(data) {
+    if (!data) return false;
+    var hasAny = false;
+
+    Object.keys(data.radios || {}).forEach(function (name) {
+      var val = data.radios[name];
+      var r = document.querySelector('input[type="radio"][name="' + name + '"][value="' + val + '"]');
+      if (r) { r.checked = true; hasAny = true; }
+    });
+    var texts = document.querySelectorAll('input.comment-input');
+    (data.texts || []).forEach(function (v, i) {
+      if (texts[i] && v) { texts[i].value = v; hasAny = true; }
+    });
+    var areas = document.querySelectorAll('.overall-comment textarea');
+    (data.areas || []).forEach(function (v, i) {
+      if (areas[i] && v) { areas[i].value = v; hasAny = true; }
+    });
+    return hasAny;
+  }
+
+  /* ── 進度指示器 ── */
+  function updateProgress() {
+    var totalReq = document.querySelectorAll('.req-confirm').length;
+    var radioGroups = new Set();
+    document.querySelectorAll('.confirm-table input[type="radio"]').forEach(function (r) {
+      radioGroups.add(r.name);
+    });
+    var total = totalReq + radioGroups.size;
+
+    var doneReq = 0;
+    document.querySelectorAll('.req-confirm').forEach(function (s) {
+      if (s.value) doneReq++;
+    });
+    var doneRadio = 0;
+    radioGroups.forEach(function (name) {
+      if (document.querySelector('input[type="radio"][name="' + name + '"]:checked')) doneRadio++;
+    });
+    var done = doneReq + doneRadio;
+    var pct  = total > 0 ? Math.round(done / total * 100) : 0;
+
+    var ind = document.getElementById('progress-indicator');
+    if (!ind) return;
+    ind.textContent = '進度：' + done + ' / ' + total + ' 項（' + pct + '%）';
+    ind.classList.toggle('done', pct === 100);
+  }
+
+  /* ── 儲存 ── */
+  function save() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(collectData()));
+    var now = new Date();
+    var t = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0') +
+            ':' + String(now.getSeconds()).padStart(2, '0');
+    var ind = document.getElementById('save-indicator');
+    ind.textContent = '✓ 已自動儲存  ' + t;
+    ind.classList.add('fresh');
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function () { ind.classList.remove('fresh'); }, 3000);
+    updateProgress();
+  }
+
+  /* ── 監聽所有輸入 ── */
+  function bindListeners() {
+    document.querySelectorAll('input[type="radio"], input.comment-input, .overall-comment textarea, .req-confirm, .req-priority')
+      .forEach(function (el) {
+        el.addEventListener('change', save);
+        el.addEventListener('input',  save);
+      });
+  }
+
+  /* ── 頁面載入：嘗試還原 ── */
+  document.addEventListener('DOMContentLoaded', function () {
+    bindListeners();
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        var saved = JSON.parse(raw);
+        var hasAny = applyData(saved);
+        if (hasAny) {
+          document.getElementById('restore-banner').classList.add('show');
+          document.getElementById('save-indicator').textContent = '✓ 已載入上次儲存記錄';
+        }
+      }
+    } catch (e) {}
+    updateProgress();
+
+    document.getElementById('btn-discard').onclick = function () {
+      if (!confirm('確定要清除所有已填寫內容並重新開始嗎？')) return;
+      localStorage.removeItem(STORAGE_KEY);
+      location.reload();
+    };
+  });
+
+  /* ── 清除 ── */
+  document.getElementById('btn-clear').onclick = function () {
+    if (!confirm('確定要清除所有已填寫的內容嗎？\n（此動作無法復原）')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    document.querySelectorAll('input[type="radio"]').forEach(function (r) { r.checked = false; });
+    document.querySelectorAll('input.comment-input').forEach(function (i) { i.value = ''; });
+    document.querySelectorAll('.overall-comment textarea').forEach(function (t) { t.value = ''; });
+    document.querySelectorAll('.req-confirm, .req-priority').forEach(function (s) { s.value = ''; });
+    document.getElementById('save-indicator').textContent = '已清除所有填寫內容';
+    document.getElementById('restore-banner').classList.remove('show');
+  };
+
+  /* ── 共用：產生回覆文字 ── */
+  function buildReplyText() {
+    var lines = [];
+    var now = new Date().toLocaleString('zh-TW', { hour12: false });
+
+    lines.push('STSP 行政平台 — 業主審閱回覆');
+    lines.push('匯出時間：' + now);
+    lines.push('業主：社團法人中華民國南部科學園區產學協會');
+    lines.push('='.repeat(60));
+    lines.push('');
+    lines.push('📩  回覆請寄至：yabohch@raiseheadstudio.com');
+    lines.push('='.repeat(60));
+
+    var textIdx  = 0;
+    var areaIdx  = 0;
+    var allTexts = document.querySelectorAll('input.comment-input');
+    var allAreas = document.querySelectorAll('.overall-comment textarea');
+    var hasContent = false;
+
+    /* 需求確認清單 */
+    lines.push('');
+    lines.push('【功能需求確認清單】');
+    lines.push('='.repeat(60));
+    document.querySelectorAll('.req-table tbody tr').forEach(function (row) {
+      var no      = row.querySelector('.req-no')   ? row.querySelector('.req-no').textContent.trim()  : '';
+      var mod     = row.querySelector('.req-mod')  ? row.querySelector('.req-mod').textContent.trim() : '';
+      var q       = row.querySelector('.req-q')    ? row.querySelector('.req-q').firstChild.textContent.trim() : '';
+      var confirm = row.querySelector('.req-confirm') ? row.querySelector('.req-confirm').value : '';
+      var prio    = row.querySelector('.req-priority') ? row.querySelector('.req-priority').value : '';
+      var reply   = row.querySelector('.req-reply')   ? row.querySelector('.req-reply').value.trim() : '';
+      if (!confirm && !reply) return;
+      lines.push('');
+      lines.push('  #' + no + ' [' + mod + '] ' + q);
+      if (confirm) lines.push('  確認：' + confirm + (prio ? '　優先度：' + prio : ''));
+      if (reply)   lines.push('  回覆：' + reply);
+      hasContent = true;
+    });
+    lines.push('');
+    lines.push('【流程圖確認】');
+    lines.push('='.repeat(60));
+
+    document.querySelectorAll('.flow-section').forEach(function (sec) {
+      var title = sec.querySelector('h2') ? sec.querySelector('h2').textContent.trim() : '';
+      lines.push('');
+      lines.push('【' + title + '】');
+      lines.push('-'.repeat(50));
+
+      var rows = sec.querySelectorAll('.confirm-table tbody tr');
+      rows.forEach(function (row) {
+        var step    = row.querySelector('.step-name') ? row.querySelector('.step-name').textContent.trim() : '';
+        var desc    = row.querySelector('.step-desc') ? row.querySelector('.step-desc').textContent.trim() : '';
+        var checked = row.querySelector('input[type="radio"]:checked');
+        var status  = checked ? checked.value : '（未確認）';
+        var comment = (allTexts[textIdx] && allTexts[textIdx].value) ? allTexts[textIdx].value.trim() : '';
+        textIdx++;
+
+        lines.push('');
+        lines.push('  步驟  ：' + step + (desc ? '　' + desc : ''));
+        lines.push('  確認  ：' + status);
+        if (comment) { lines.push('  意見  ：' + comment); hasContent = true; }
+        if (checked && checked.value !== '同意') hasContent = true;
+      });
+
+      var overall = (allAreas[areaIdx] && allAreas[areaIdx].value) ? allAreas[areaIdx].value.trim() : '';
+      areaIdx++;
+      if (overall) {
+        lines.push('');
+        lines.push('  ▸ 整體意見：' + overall);
+        hasContent = true;
+      }
+    });
+
+    lines.push('');
+    lines.push('='.repeat(60));
+    if (!hasContent) lines.push('（本份回覆尚無需調整項目或額外意見）');
+    lines.push('');
+    lines.push('— 本文件由 STSP 業主審閱系統自動產生 —');
+    lines.push('— 回覆請寄至：yabohch@raiseheadstudio.com —');
+
+    return lines.join('\n');
+  }
+
+  /* ── 匯出回覆 ── */
+  document.getElementById('btn-export').onclick = function () {
+    var text    = buildReplyText();
+    var blob    = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    var url     = URL.createObjectURL(blob);
+    var a       = document.createElement('a');
+    a.href      = url;
+    var dateStr = new Date().toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' })
+                            .replace(/\//g, '');
+    a.download  = 'STSP_業主回覆_' + dateStr + '.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    setTimeout(function () {
+      alert('📁 檔案已下載！\n\n請將此檔案以附件方式寄至：\nyabohch@raiseheadstudio.com\n\n主旨請填：STSP 行政平台 — 業主審閱回覆');
+    }, 400);
+  };
+
+  /* ── 複製回覆到剪貼板 ── */
+  document.getElementById('btn-copy').onclick = function () {
+    var text = buildReplyText();
+    var btn  = document.getElementById('btn-copy');
+    var orig = btn.textContent;
+
+    function onSuccess() {
+      btn.textContent = '✅ 已複製！';
+      setTimeout(function () { btn.textContent = orig; }, 3000);
+      alert('回覆內容已複製到剪貼板！\n\n請開啟電子郵件，新增一封信：\n收件人：yabohch@raiseheadstudio.com\n主旨：STSP 行政平台 — 業主審閱回覆\n\n再將剪貼板內容貼入內文後寄出。\n（若內容過長，建議改用「📥 匯出回覆」以附件方式寄出）');
+    }
+    function onFail() {
+      alert('複製失敗，請改用「📥 匯出回覆」下載檔案，\n並以附件方式寄至：yabohch@raiseheadstudio.com');
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(onSuccess).catch(onFail);
+    } else {
+      /* 舊瀏覽器 fallback */
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        onSuccess();
+      } catch (e) { onFail(); }
+    }
+  };
+
+})();
+</script>
+
+</body>
+</html>

@@ -463,6 +463,8 @@
     <li><a href="#finance">6. 帳務模組整合流程（M-08 / M-09 / M-10 / M-11）</a></li>
     <li><a href="#m12">7. M-12 請購單完整流程</a></li>
     <li><a href="#cross-module">8. 跨模組自動化整合流程</a></li>
+    <li><a href="#m01-salary">9. M-01 薪資資料管理流程</a></li>
+    <li><a href="#m13">10. M-13 智慧提醒流程</a></li>
     <li><a href="#requirements">📋 功能需求確認清單</a></li>
   </ul>
 </nav>
@@ -485,7 +487,7 @@
       <span>業主：社團法人中華民國南部科學園區產學協會</span>
       <span>版本：v1.0</span>
       <span>日期：2026 年 6 月</span>
-      <span>流程圖數量：8 張</span>
+      <span>流程圖數量：10 張</span>
     </div>
   </div>
 
@@ -502,7 +504,7 @@
       <span class="section-num">📋</span>
       <div>
         <h2>功能需求確認清單</h2>
-        <p class="section-desc">共 28 項功能細節，請逐條選擇確認狀態並填寫意見，完成後點底部「寄送回覆」或「匯出回覆」。</p>
+        <p class="section-desc">共 35 項功能細節，請逐條選擇確認狀態並填寫意見，完成後點底部「寄送回覆」或「匯出回覆」。</p>
       </div>
     </div>
     <div class="req-body">
@@ -527,6 +529,9 @@
             <tr><td class="req-no">13</td><td class="req-mod">M-06</td><td class="req-q">是否需要「員工自評」欄位？<br><span class="req-note">讓員工先填自評，主管再評</span></td><td class="req-sel"><select class="req-confirm" data-req="13"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="13"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="13"></td></tr>
             <tr style="background:#FAFBFC"><td class="req-no">14</td><td class="req-mod">M-07</td><td class="req-q">人事報表是否需要可切換「本月／本季／本年」？<br><span class="req-note">目前顯示全部資料</span></td><td class="req-sel"><select class="req-confirm" data-req="14"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="14"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="14"></td></tr>
             <tr><td class="req-no">15</td><td class="req-mod">M-07</td><td class="req-q">是否需要特休餘額統計表？<br><span class="req-note">顯示每位員工剩餘特休天數</span></td><td class="req-sel"><select class="req-confirm" data-req="15"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="15"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="15"></td></tr>
+            <tr style="background:#E8F5E9"><td class="req-no">16</td><td class="req-mod">M-01</td><td class="req-q">薪資欄位新增確認：本薪／津貼／職務加給，異動需主管核准後生效。<br><span class="req-note">✅ 業主已確認新增（薪酬模組第二階段建置前的過渡方案）</span></td><td class="req-sel"><select class="req-confirm" data-req="16"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="16"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="16"></td></tr>
+            <tr><td class="req-no">17</td><td class="req-mod">M-01</td><td class="req-q">津貼項目（交通津貼／伙食津貼／其他津貼）是否符合實際需求？<br><span class="req-note">是否需要增減或改名？</span></td><td class="req-sel"><select class="req-confirm" data-req="17"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="17"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="17"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">18</td><td class="req-mod">M-01</td><td class="req-q">薪資資料是否需要保留歷史版本？<br><span class="req-note">即每次調薪都留一筆完整紀錄，可查閱歷次薪資</span></td><td class="req-sel"><select class="req-confirm" data-req="18"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="18"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="18"></td></tr>
           </tbody>
         </table></div>
         <div class="req-section-comment" style="margin:10px 0 0 0;border-radius:0 0 6px 6px;">
@@ -540,13 +545,13 @@
         <div class="req-table-wrap"><table class="req-table">
           <thead><tr><th style="width:42px">#</th><th style="width:72px">模組</th><th>待確認事項</th><th style="width:150px">業主確認</th><th style="width:72px">優先度</th><th style="width:200px">業主回覆 / 意見</th></tr></thead>
           <tbody>
-            <tr><td class="req-no">16</td><td class="req-mod">M-08</td><td class="req-q">專案代碼命名格式是否固定？<br><span class="req-note">目前格式：PRJ/ASC/EXH-YYYY-NNN</span></td><td class="req-sel"><select class="req-confirm" data-req="16"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="16"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="16"></td></tr>
-            <tr style="background:#FAFBFC"><td class="req-no">17</td><td class="req-mod">M-09</td><td class="req-q">費用類別清單是否需要增減項目？<br><span class="req-note">目前共 16 個費用類別</span></td><td class="req-sel"><select class="req-confirm" data-req="17"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="17"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="17"></td></tr>
-            <tr><td class="req-no">18</td><td class="req-mod">M-09</td><td class="req-q">是否需要「發票號碼」必填？<br><span class="req-note">目前為選填</span></td><td class="req-sel"><select class="req-confirm" data-req="18"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="18"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="18"></td></tr>
-            <tr style="background:#FAFBFC"><td class="req-no">19</td><td class="req-mod">M-10</td><td class="req-q">財務報表是否需要依年度或月份篩選？<br><span class="req-note">目前顯示全部資料</span></td><td class="req-sel"><select class="req-confirm" data-req="19"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="19"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="19"></td></tr>
-            <tr><td class="req-no">20</td><td class="req-mod">M-10</td><td class="req-q">是否需要匯出財務報表（PDF 或 Excel）？</td><td class="req-sel"><select class="req-confirm" data-req="20"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="20"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="20"></td></tr>
-            <tr style="background:#FAFBFC"><td class="req-no">21</td><td class="req-mod">M-11</td><td class="req-q">預算警示門檻（70% / 90%）是否適合貴協會實際需求？</td><td class="req-sel"><select class="req-confirm" data-req="21"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="21"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="21"></td></tr>
-            <tr><td class="req-no">22</td><td class="req-mod">M-11</td><td class="req-q">預算期間是否為年度制，或需要支援季度預算？</td><td class="req-sel"><select class="req-confirm" data-req="22"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="22"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="22"></td></tr>
+            <tr><td class="req-no">19</td><td class="req-mod">M-08</td><td class="req-q">專案代碼命名格式是否固定？<br><span class="req-note">目前格式：PRJ/ASC/EXH-YYYY-NNN</span></td><td class="req-sel"><select class="req-confirm" data-req="19"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="19"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="19"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">20</td><td class="req-mod">M-09</td><td class="req-q">費用類別清單是否需要增減項目？<br><span class="req-note">目前共 16 個費用類別</span></td><td class="req-sel"><select class="req-confirm" data-req="20"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="20"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="20"></td></tr>
+            <tr><td class="req-no">21</td><td class="req-mod">M-09</td><td class="req-q">是否需要「發票號碼」必填？<br><span class="req-note">目前為選填</span></td><td class="req-sel"><select class="req-confirm" data-req="21"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="21"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="21"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">22</td><td class="req-mod">M-10</td><td class="req-q">財務報表是否需要依年度或月份篩選？<br><span class="req-note">目前顯示全部資料</span></td><td class="req-sel"><select class="req-confirm" data-req="22"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="22"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="22"></td></tr>
+            <tr><td class="req-no">23</td><td class="req-mod">M-10</td><td class="req-q">是否需要匯出財務報表（PDF 或 Excel）？</td><td class="req-sel"><select class="req-confirm" data-req="23"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="23"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="23"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">24</td><td class="req-mod">M-11</td><td class="req-q">預算警示門檻（70% / 90%）是否適合貴協會實際需求？</td><td class="req-sel"><select class="req-confirm" data-req="24"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="24"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="24"></td></tr>
+            <tr><td class="req-no">25</td><td class="req-mod">M-11</td><td class="req-q">預算期間是否為年度制，或需要支援季度預算？</td><td class="req-sel"><select class="req-confirm" data-req="25"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="25"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="25"></td></tr>
           </tbody>
         </table></div>
         <div class="req-section-comment" style="margin:10px 0 0 0;border-radius:0 0 6px 6px;">
@@ -560,9 +565,9 @@
         <div class="req-table-wrap"><table class="req-table">
           <thead><tr><th style="width:42px">#</th><th style="width:72px">模組</th><th>待確認事項</th><th style="width:150px">業主確認</th><th style="width:72px">優先度</th><th style="width:200px">業主回覆 / 意見</th></tr></thead>
           <tbody>
-            <tr><td class="req-no">23</td><td class="req-mod">M-12</td><td class="req-q">請購金額是否需要分層核准門檻？<br><span class="req-note">如：小額由主管核准；大額需秘書長複核</span></td><td class="req-sel"><select class="req-confirm" data-req="23"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="23"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="23"></td></tr>
-            <tr style="background:#FAFBFC"><td class="req-no">24</td><td class="req-mod">M-12</td><td class="req-q">是否需要「請購單附件上傳」功能？<br><span class="req-note">如報價單、發票掃描</span></td><td class="req-sel"><select class="req-confirm" data-req="24"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="24"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="24"></td></tr>
-            <tr><td class="req-no">25</td><td class="req-mod">M-12</td><td class="req-q">駁回後，申請人是否可以修改後重新送出？</td><td class="req-sel"><select class="req-confirm" data-req="25"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="25"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="25"></td></tr>
+            <tr><td class="req-no">26</td><td class="req-mod">M-12</td><td class="req-q">請購金額是否需要分層核准門檻？<br><span class="req-note">如：小額由主管核准；大額需秘書長複核</span></td><td class="req-sel"><select class="req-confirm" data-req="26"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="26"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="26"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">27</td><td class="req-mod">M-12</td><td class="req-q">是否需要「請購單附件上傳」功能？<br><span class="req-note">如報價單、發票掃描</span></td><td class="req-sel"><select class="req-confirm" data-req="27"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="27"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="27"></td></tr>
+            <tr><td class="req-no">28</td><td class="req-mod">M-12</td><td class="req-q">駁回後，申請人是否可以修改後重新送出？</td><td class="req-sel"><select class="req-confirm" data-req="28"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="28"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="28"></td></tr>
           </tbody>
         </table></div>
         <div class="req-section-comment" style="margin:10px 0 0 0;border-radius:0 0 6px 6px;">
@@ -572,13 +577,30 @@
       </div>
 
       <div class="req-group">
+        <div class="req-group-title">🔔　智慧提醒類</div>
+        <div class="req-table-wrap"><table class="req-table">
+          <thead><tr><th style="width:42px">#</th><th style="width:72px">模組</th><th>待確認事項</th><th style="width:150px">業主確認</th><th style="width:72px">優先度</th><th style="width:200px">業主回覆 / 意見</th></tr></thead>
+          <tbody>
+            <tr style="background:#E8F5E9"><td class="req-no">29</td><td class="req-mod">M-13</td><td class="req-q">新增 M-13 智慧提醒模組：導覽列 Bell icon＋未讀數字角標，依角色推送差勤、薪資、帳務等提醒。<br><span class="req-note">✅ 業主已確認新增模組</span></td><td class="req-sel"><select class="req-confirm" data-req="29"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="29"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="29"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">30</td><td class="req-mod">M-13</td><td class="req-q">提醒觸發規則是否需要客製化（如：調整提前天數或停用特定通知類型）？</td><td class="req-sel"><select class="req-confirm" data-req="30"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="30"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="30"></td></tr>
+            <tr><td class="req-no">31</td><td class="req-mod">M-13</td><td class="req-q">提醒訊息是否需要支援「已讀/未讀」標記？使用者可否手動標為已讀或封存？</td><td class="req-sel"><select class="req-confirm" data-req="31"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="31"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="31"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">32</td><td class="req-mod">M-13</td><td class="req-q">是否需要將重要提醒同步寄送 Email？<br><span class="req-note">如：主管待簽核、合約到期警示</span></td><td class="req-sel"><select class="req-confirm" data-req="32"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="32"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="32"></td></tr>
+            <tr><td class="req-no">33</td><td class="req-mod">M-13</td><td class="req-q">提醒歷史紀錄需保存多久？是否需要依類型篩選查詢？</td><td class="req-sel"><select class="req-confirm" data-req="33"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="33"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="33"></td></tr>
+          </tbody>
+        </table></div>
+        <div class="req-section-comment" style="margin:10px 0 0 0;border-radius:0 0 6px 6px;">
+          <label>📝 智慧提醒類整體意見：</label>
+          <textarea placeholder="請輸入對智慧提醒功能的整體建議或補充說明…" rows="2"></textarea>
+        </div>
+      </div>
+
+      <div class="req-group">
         <div class="req-group-title">⚙️　系統通用</div>
         <div class="req-table-wrap"><table class="req-table">
           <thead><tr><th style="width:42px">#</th><th style="width:72px">模組</th><th>待確認事項</th><th style="width:150px">業主確認</th><th style="width:72px">優先度</th><th style="width:200px">業主回覆 / 意見</th></tr></thead>
           <tbody>
-            <tr><td class="req-no">26</td><td class="req-mod">全系統</td><td class="req-q">是否需要「Email 通知」系統？<br><span class="req-note">審核結果、預算警示等自動通知</span></td><td class="req-sel"><select class="req-confirm" data-req="26"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="26"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="26"></td></tr>
-            <tr style="background:#FAFBFC"><td class="req-no">27</td><td class="req-mod">全系統</td><td class="req-q">是否需要「系統公告」功能？<br><span class="req-note">讓管理員發布全員通知</span></td><td class="req-sel"><select class="req-confirm" data-req="27"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="27"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="27"></td></tr>
-            <tr><td class="req-no">28</td><td class="req-mod">全系統</td><td class="req-q">資料保存年限？是否需要定期歸檔或清除舊資料的機制？</td><td class="req-sel"><select class="req-confirm" data-req="28"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="28"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="28"></td></tr>
+            <tr><td class="req-no">34</td><td class="req-mod">全系統</td><td class="req-q">是否需要「系統公告」功能？<br><span class="req-note">讓管理員發布全員通知</span></td><td class="req-sel"><select class="req-confirm" data-req="34"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="34"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="34"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">35</td><td class="req-mod">全系統</td><td class="req-q">資料保存年限？是否需要定期歸檔或清除舊資料的機制？</td><td class="req-sel"><select class="req-confirm" data-req="35"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="35"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="35"></td></tr>
           </tbody>
         </table></div>
         <div class="req-section-comment" style="margin:10px 0 0 0;border-radius:0 0 6px 6px;">
@@ -1055,11 +1077,15 @@
     TYPE -- 請假 --> L1[選擇假別\n特休/病假/事假/補休/產假/公假]
     L1 --> L2[填寫起迄日期\n及事由說明]
 
+    TYPE -- 出差外出 --> T1[填寫出差地點\n出差目的及交通方式]
+    T1 --> T2[填寫起迄日期\n及事由說明]
+
     TYPE -- 加班申請 --> O1[填寫加班日期\n及起迄時間]
 
     TYPE -- 補卡申請 --> C1[填寫補卡日期\n及補卡時間]
 
     L2 --> SUBMIT[送出申請\n狀態：審核中]
+    T2 --> SUBMIT
     O1 --> SUBMIT
     C1 --> SUBMIT
 
@@ -1070,6 +1096,7 @@
     DECISION -- 核准 --> APP[點擊「核准」]
     APP --> AUTO{申請類型}
     AUTO -- 請假 --> A1[✅ 出勤狀態\n更新為「請假」]
+    AUTO -- 出差外出 --> A4[✅ 出勤狀態\n更新為「出差」]
     AUTO -- 補卡 --> A2[✅ 出勤紀錄\n自動補登]
     AUTO -- 加班 --> A3[✅ 加班時數\n自動累加]
 
@@ -1077,6 +1104,7 @@
     REJ --> NOTIFY[狀態：已駁回\n員工收到結果]
 
     A1 --> END([📋 流程結束])
+    A4 --> END
     A2 --> END
     A3 --> END
     NOTIFY --> END
@@ -1084,6 +1112,7 @@
     style EMP fill:#1E3A5F,color:#fff
     style MGR fill:#4A6FA5,color:#fff
     style A1 fill:#D4EDDA
+    style A4 fill:#D4EDDA
     style A2 fill:#D4EDDA
     style A3 fill:#D4EDDA
     style NOTIFY fill:#F8D7DA
@@ -1129,6 +1158,16 @@
             <label><input type="radio" name="m04-m05_s2" value="同意"> 同意</label>
             <label><input type="radio" name="m04-m05_s2" value="調整"> 需調整</label>
             <label><input type="radio" name="m04-m05_s2" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">出差外出 – 獨立申請類型</td>
+          <td class="step-desc">填寫出差地點、目的、交通方式（與公假分離）</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m04-m05_s3a" value="同意"> 同意</label>
+            <label><input type="radio" name="m04-m05_s3a" value="調整"> 需調整</label>
+            <label><input type="radio" name="m04-m05_s3a" value="刪除"> 不需要</label>
           </td>
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>
@@ -1684,6 +1723,7 @@
         L1[請假申請\n主管核准]
         L2[補卡申請\n主管核准]
         L3[加班申請\n主管核准]
+        L4[出差外出申請\n主管核准]
     end
 
     subgraph 出勤紀錄模組 M-03
@@ -1691,6 +1731,13 @@
         R1[出勤狀態\n更新為「請假」]
         R2[出勤紀錄\n自動補登]
         R3[加班時數\n自動累加]
+        R4[出勤狀態\n更新為「出差」]
+    end
+
+    subgraph 薪資管理模組 M-01
+        direction TB
+        S1[HR 建立薪資資料\n草稿狀態]
+        S2[主管核准後\n薪資正式生效]
     end
 
     subgraph 請購模組
@@ -1708,6 +1755,8 @@
     L1 -- 自動 --> R1
     L2 -- 自動 --> R2
     L3 -- 自動 --> R3
+    L4 -- 自動 --> R4
+    S1 -- 送主管核准 --> S2
     P1 -- 自動 --> P2
     P2 -- 自動 --> P3
     P2 -- 自動 --> P4
@@ -1715,9 +1764,13 @@
     style L1 fill:#EBF4FA
     style L2 fill:#EBF4FA
     style L3 fill:#EBF4FA
+    style L4 fill:#EBF4FA
     style R1 fill:#D4EDDA
     style R2 fill:#D4EDDA
     style R3 fill:#D4EDDA
+    style R4 fill:#D4EDDA
+    style S1 fill:#FFF9C4
+    style S2 fill:#D4EDDA
     style P1 fill:#FFF9C4
     style P2 fill:#D4EDDA
     style P3 fill:#D4EDDA
@@ -1793,6 +1846,228 @@
             <label><input type="radio" name="cross-module_s5" value="同意"> 同意</label>
             <label><input type="radio" name="cross-module_s5" value="調整"> 需調整</label>
             <label><input type="radio" name="cross-module_s5" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">出差外出核准 → 出勤狀態更新</td>
+          <td class="step-desc">對應日期自動標記為「出差」，與請假獨立計算</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="cross-module_s6" value="同意"> 同意</label>
+            <label><input type="radio" name="cross-module_s6" value="調整"> 需調整</label>
+            <label><input type="radio" name="cross-module_s6" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">薪資異動 → 主管核准後生效（M-01）</td>
+          <td class="step-desc">HR 建立薪資草稿，送主管核准後才正式生效，異動記錄保留歷史版本</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="cross-module_s7" value="同意"> 同意</label>
+            <label><input type="radio" name="cross-module_s7" value="調整"> 需調整</label>
+            <label><input type="radio" name="cross-module_s7" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="overall-comment">
+      <label>📝 本流程整體意見：</label>
+      <textarea placeholder="請輸入對此流程的整體建議或需要調整的地方…" rows="3"></textarea>
+    </div>
+    </div>
+  </section>
+
+  <section id="m01-salary" class="flow-section">
+    <div class="section-header">
+      <span class="section-num">9</span>
+      <div>
+        <h2>M-01 薪資資料管理流程</h2>
+        <p class="section-desc">員工基本資料模組新增薪資欄位（本薪／津貼／職務加給），HR 建立後須經主管核准方可生效，保留完整異動歷程。</p>
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <div class="mermaid">flowchart TD
+    HR([👩‍💼 人資 HR]) --> CREATE[建立薪資資料\n本薪 ／ 津貼 ／ 職務加給\n生效日期]
+    CREATE --> DRAFT[狀態：草稿]
+    DRAFT --> SEND[送交主管審核\n狀態：待確認]
+    SEND --> MGR([👔 主管])
+    MGR --> DECISION{審核決定}
+
+    DECISION -- 核准 --> ACTIVE[狀態：已生效\n薪資資料正式生效]
+    DECISION -- 駁回 --> REJECT[狀態：已駁回\nHR 收到通知]
+    REJECT --> EDIT[HR 修改後\n重新送審]
+    EDIT --> SEND
+
+    ACTIVE --> HIST[系統保留歷史版本\n每次異動均可查閱]
+    HIST --> END([📋 流程結束])
+
+    style HR fill:#1E3A5F,color:#fff
+    style MGR fill:#4A6FA5,color:#fff
+    style ACTIVE fill:#D4EDDA
+    style REJECT fill:#F8D7DA
+    style HIST fill:#EBF4FA
+    style END fill:#2C7873,color:#fff</div>
+    </div>
+    <div class="confirm-area">
+      <h3>✅ 流程確認表</h3>
+    <table class="confirm-table">
+      <thead>
+        <tr>
+          <th>流程步驟</th>
+          <th>說明</th>
+          <th>業主確認</th>
+          <th>業主意見</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="step-name">HR 建立薪資資料（草稿）</td>
+          <td class="step-desc">填寫本薪、交通津貼、伙食津貼、其他津貼、職務加給、生效日期</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m01-sal_s0" value="同意"> 同意</label>
+            <label><input type="radio" name="m01-sal_s0" value="調整"> 需調整</label>
+            <label><input type="radio" name="m01-sal_s0" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">送交主管審核（待確認）</td>
+          <td class="step-desc">薪資資料送出後，主管在審核中心看到待簽核項目</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m01-sal_s1" value="同意"> 同意</label>
+            <label><input type="radio" name="m01-sal_s1" value="調整"> 需調整</label>
+            <label><input type="radio" name="m01-sal_s1" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">主管核准 → 薪資生效</td>
+          <td class="step-desc">核准後狀態更新為「已生效」，薪資資料正式成立</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m01-sal_s2" value="同意"> 同意</label>
+            <label><input type="radio" name="m01-sal_s2" value="調整"> 需調整</label>
+            <label><input type="radio" name="m01-sal_s2" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">主管駁回 → HR 修改重審</td>
+          <td class="step-desc">駁回後 HR 可修改草稿再次送審</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m01-sal_s3" value="同意"> 同意</label>
+            <label><input type="radio" name="m01-sal_s3" value="調整"> 需調整</label>
+            <label><input type="radio" name="m01-sal_s3" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">保留歷史版本</td>
+          <td class="step-desc">每次薪資異動均保留一筆完整歷史紀錄，可查閱歷次薪資變化</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m01-sal_s4" value="同意"> 同意</label>
+            <label><input type="radio" name="m01-sal_s4" value="調整"> 需調整</label>
+            <label><input type="radio" name="m01-sal_s4" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="overall-comment">
+      <label>📝 本流程整體意見：</label>
+      <textarea placeholder="請輸入對此流程的整體建議或需要調整的地方…" rows="3"></textarea>
+    </div>
+    </div>
+  </section>
+
+  <section id="m13" class="flow-section">
+    <div class="section-header">
+      <span class="section-num">10</span>
+      <div>
+        <h2>M-13 智慧提醒流程</h2>
+        <p class="section-desc">系統依角色自動推送差勤、薪資異動、帳務等提醒，導覽列顯示 Bell icon 及未讀數字角標。</p>
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <div class="mermaid">flowchart TD
+    SYS([⚙️ 系統]) --> TRIGGER{觸發條件}
+
+    TRIGGER -- 待核准申請 --> N1[提醒主管\n有待簽核項目]
+    TRIGGER -- 合約到期前 30 天 --> N2[提醒管理員\n合約即將到期]
+    TRIGGER -- 薪資異動待核准 --> N3[提醒主管\n薪資待確認]
+    TRIGGER -- 請假餘額不足 --> N4[提醒員工\n假別餘額偏低]
+    TRIGGER -- 預算使用率 ≥ 70% --> N5[提醒管理員\n預算警示]
+
+    N1 --> BELL[🔔 Bell icon 角標\n數字更新]
+    N2 --> BELL
+    N3 --> BELL
+    N4 --> BELL
+    N5 --> BELL
+
+    BELL --> USER([👤 使用者點擊 Bell])
+    USER --> LIST[開啟提醒列表\n依優先度排序]
+    LIST --> READ[標記已讀 ／ 封存]
+    READ --> END([✅ 提醒處理完成])
+
+    style SYS fill:#1E3A5F,color:#fff
+    style USER fill:#4A6FA5,color:#fff
+    style BELL fill:#FFF9C4
+    style N1 fill:#EBF4FA
+    style N2 fill:#EBF4FA
+    style N3 fill:#EBF4FA
+    style N4 fill:#EBF4FA
+    style N5 fill:#FDECEA
+    style END fill:#2C7873,color:#fff</div>
+    </div>
+    <div class="confirm-area">
+      <h3>✅ 流程確認表</h3>
+    <table class="confirm-table">
+      <thead>
+        <tr>
+          <th>流程步驟</th>
+          <th>說明</th>
+          <th>業主確認</th>
+          <th>業主意見</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="step-name">系統自動觸發提醒</td>
+          <td class="step-desc">依條件（待核准、到期、薪資、預算等）自動產生通知</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m13_s0" value="同意"> 同意</label>
+            <label><input type="radio" name="m13_s0" value="調整"> 需調整</label>
+            <label><input type="radio" name="m13_s0" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">導覽列 Bell icon 角標</td>
+          <td class="step-desc">未讀提醒數字即時更新，醒目顯示於頁面頂部</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m13_s1" value="同意"> 同意</label>
+            <label><input type="radio" name="m13_s1" value="調整"> 需調整</label>
+            <label><input type="radio" name="m13_s1" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">提醒列表依優先度排序</td>
+          <td class="step-desc">重要（紅）→ 一般（橙）→ 提醒（黃）→ 資訊（綠）</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m13_s2" value="同意"> 同意</label>
+            <label><input type="radio" name="m13_s2" value="調整"> 需調整</label>
+            <label><input type="radio" name="m13_s2" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">標記已讀 ／ 封存</td>
+          <td class="step-desc">使用者可手動標記已讀或封存，不再佔用角標數字</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m13_s3" value="同意"> 同意</label>
+            <label><input type="radio" name="m13_s3" value="調整"> 需調整</label>
+            <label><input type="radio" name="m13_s3" value="刪除"> 不需要</label>
           </td>
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>

@@ -680,7 +680,7 @@
     subgraph sg_adm [🔧 系統管理員]
         direction TB
         A1[全功能存取]
-        A2[系統設定與帳號管理]
+        A2[組織管理 M-00\n部門／職稱／津貼／考勤／打卡地點]
     end
 
     style LOGIN fill:#1E3A5F,color:#fff
@@ -799,35 +799,42 @@
       <span class="section-num">2</span>
       <div>
         <h2>人事差勤主流程（M-02 / M-03 / M-04 / M-05）</h2>
-        <p class="section-desc">涵蓋員工從打卡、出勤記錄、請假申請到主管審核的完整日常流程。</p>
+        <p class="section-desc">涵蓋員工從掃碼打卡、出勤記錄、請假／外出／出差／加班／補卡申請到主管審核的完整日常流程。<strong>M-02 打卡方式已改為 QR Code 掃描</strong>（原規劃為按鈕打卡），詳見下方流程。</p>
       </div>
     </div>
     <div class="chart-wrapper">
       <div class="mermaid">flowchart TD
-    START([👤 員工開始上班]) --> CLOCK[上班打卡\nM-02]
+    START([👤 員工到達辦公室]) --> SCAN[手機掃描 Kiosk 裝置\n上顯示的 QR Code\nM-02]
+    SCAN --> CLOCK[系統自動判定上/下班\n並記錄打卡地點]
     CLOCK --> ATTEND[出勤紀錄自動產生\nM-03]
     ATTEND --> WORK[工作中]
 
     WORK --> NEED{需要提出申請?}
 
-    NEED -- 請假 --> APPLY_L[填寫請假申請\n選擇假別 / 起迄日期 / 事由\nM-04]
+    NEED -- 請假 --> APPLY_L[填寫請假申請\n選擇假別（共14種）/ 起迄日期 / 事由\nM-04]
+    NEED -- 外出 --> APPLY_W[填寫外出申請\n目的地 / 任務說明\n當日返回\nM-04]
+    NEED -- 出差 --> APPLY_T[填寫出差申請\n目的地 / 任務說明 / 交通方式\nM-04]
     NEED -- 加班 --> APPLY_O[填寫加班申請\n填加班起迄時間\nM-04]
     NEED -- 補卡 --> APPLY_C[填寫補卡申請\n填補卡時間\nM-04]
     NEED -- 否 --> CLOCKOUT
 
     APPLY_L --> SUBMIT[送出申請]
+    APPLY_W --> SUBMIT
+    APPLY_T --> SUBMIT
     APPLY_O --> SUBMIT
     APPLY_C --> SUBMIT
 
-    SUBMIT --> REVIEW[主管在審核中心審核\nM-05]
+    SUBMIT --> REVIEW[主管在審核中心審核\n僅能審核本部門申請\nM-05]
     REVIEW --> RESULT{審核結果}
 
     RESULT -- 核准\n請假 --> AUTO1[出勤狀態更新為「請假」]
+    RESULT -- 核准\n外出/出差 --> AUTO4[出勤紀錄加上附加標記\n不影響主要出勤狀態]
     RESULT -- 核准\n補卡 --> AUTO2[出勤紀錄補登]
     RESULT -- 核准\n加班 --> AUTO3[加班時數累加]
-    RESULT -- 駁回 --> REJECT[主管填寫駁回原因\n員工收到通知]
+    RESULT -- 駁回 --> REJECT[主管填寫駁回原因（必填）\n員工收到通知]
 
-    AUTO1 --> CLOCKOUT([下班打卡 M-02])
+    AUTO1 --> CLOCKOUT([掃碼完成下班打卡 M-02])
+    AUTO4 --> CLOCKOUT
     AUTO2 --> CLOCKOUT
     AUTO3 --> CLOCKOUT
     REJECT --> CLOCKOUT
@@ -838,6 +845,7 @@
     style CLOCKOUT fill:#1E3A5F,color:#fff
     style RECORD fill:#2C7873,color:#fff
     style AUTO1 fill:#D4EDDA
+    style AUTO4 fill:#D4EDDA
     style AUTO2 fill:#D4EDDA
     style AUTO3 fill:#D4EDDA
     style REJECT fill:#F8D7DA</div>
@@ -856,8 +864,8 @@
       </thead>
       <tbody>
         <tr>
-          <td class="step-name">上班打卡</td>
-          <td class="step-desc">員工點擊打卡按鈕，系統記錄上班時間</td>
+          <td class="step-name">上班打卡（QR Code 掃描）</td>
+          <td class="step-desc">員工用手機掃描辦公室 Kiosk 裝置上的 QR Code（每 90 秒自動更新，防止截圖代打卡），系統自動記錄上班時間與地點</td>
           <td class="td-confirm">
             <label><input type="radio" name="hr-attendance_s0" value="同意"> 同意</label>
             <label><input type="radio" name="hr-attendance_s0" value="調整"> 需調整</label>
@@ -877,11 +885,31 @@
         </tr>
         <tr>
           <td class="step-name">請假申請</td>
-          <td class="step-desc">填寫假別、起迄日期、事由後送出</td>
+          <td class="step-desc">選擇假別（共 14 種，依勞基法／勞工請假規則／性別工作平等法）、填寫起迄日期、事由後送出</td>
           <td class="td-confirm">
             <label><input type="radio" name="hr-attendance_s2" value="同意"> 同意</label>
             <label><input type="radio" name="hr-attendance_s2" value="調整"> 需調整</label>
             <label><input type="radio" name="hr-attendance_s2" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">外出申請</td>
+          <td class="step-desc">當日公務外出，填寫目的地與任務說明，同日內返回</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="hr-attendance_s2a" value="同意"> 同意</label>
+            <label><input type="radio" name="hr-attendance_s2a" value="調整"> 需調整</label>
+            <label><input type="radio" name="hr-attendance_s2a" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">出差申請</td>
+          <td class="step-desc">可能過夜或多日，填寫目的地、任務說明、交通方式</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="hr-attendance_s2b" value="同意"> 同意</label>
+            <label><input type="radio" name="hr-attendance_s2b" value="調整"> 需調整</label>
+            <label><input type="radio" name="hr-attendance_s2b" value="刪除"> 不需要</label>
           </td>
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>
@@ -907,7 +935,7 @@
         </tr>
         <tr>
           <td class="step-name">主管審核</td>
-          <td class="step-desc">主管在審核中心 M-05 核准或駁回</td>
+          <td class="step-desc">主管在審核中心 M-05 核准或駁回；主管僅能看到「直屬主管為自己」的員工申請，人資／管理員可看全員</td>
           <td class="td-confirm">
             <label><input type="radio" name="hr-attendance_s5" value="同意"> 同意</label>
             <label><input type="radio" name="hr-attendance_s5" value="調整"> 需調整</label>
@@ -927,7 +955,7 @@
         </tr>
         <tr>
           <td class="step-name">駁回通知</td>
-          <td class="step-desc">駁回原因回饋給員工</td>
+          <td class="step-desc">駁回原因（前端已設為必填）回饋給員工</td>
           <td class="td-confirm">
             <label><input type="radio" name="hr-attendance_s7" value="同意"> 同意</label>
             <label><input type="radio" name="hr-attendance_s7" value="調整"> 需調整</label>
@@ -936,8 +964,8 @@
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>
         <tr>
-          <td class="step-name">下班打卡</td>
-          <td class="step-desc">員工點擊下班打卡完成當日記錄</td>
+          <td class="step-name">下班打卡（QR Code 掃描）</td>
+          <td class="step-desc">員工再次掃描 QR Code，系統自動判定為下班並完成當日記錄</td>
           <td class="td-confirm">
             <label><input type="radio" name="hr-attendance_s8" value="同意"> 同意</label>
             <label><input type="radio" name="hr-attendance_s8" value="調整"> 需調整</label>
@@ -959,16 +987,17 @@
       <span class="section-num">3</span>
       <div>
         <h2>M-01 員工基本資料管理流程</h2>
-        <p class="section-desc">人資或管理員對員工主檔的新增、編輯、停用流程。所有模組的使用者身份均來自此主檔。</p>
+        <p class="section-desc">人資或管理員對員工主檔的新增、編輯、停用流程。所有模組的使用者身份均來自此主檔。員工資料已擴充為單頁捲動的 A～H 八大區塊（個人身份／聯絡／學歷／任職／勞健保／薪轉帳戶／眷屬／薪資歷史），部門與職稱清單改由 <strong>M-00 組織管理</strong>統一維護。</p>
       </div>
     </div>
     <div class="chart-wrapper">
       <div class="mermaid">flowchart TD
     START([👩‍💼 人資 / 管理員]) --> ACTION{操作類型}
 
-    ACTION -- 新增員工 --> ADD1[填寫基本資料\n姓名 / 部門 / 職稱 / Email]
-    ADD1 --> ADD2[設定角色權限\n到職日期]
-    ADD2 --> ADD3[系統自動產生\n員工編號 EMP-YYYY-NNN\n初始密碼 stsp@2026]
+    ACTION -- 新增員工 --> ADD1[於單頁表單填寫 A~H 區塊\n個人身份/聯絡/學歷/任職\n部門職稱從 M-00 讀取]
+    ADD1 --> ADD1B[填寫勞健保/薪轉帳戶/眷屬\n（E~G 區塊）]
+    ADD1B --> ADD2[設定角色權限\n到職日期]
+    ADD2 --> ADD3[系統自動產生\n員工編號 EMP-YYYY-NNN\n固定初始密碼（首次登入強制修改）]
     ADD3 --> DONE1([✅ 員工帳號建立完成])
 
     ACTION -- 編輯資料 --> EDIT[搜尋員工\n依部門 / 姓名 / 狀態]
@@ -1003,12 +1032,22 @@
       </thead>
       <tbody>
         <tr>
-          <td class="step-name">新增員工</td>
-          <td class="step-desc">填寫基本資料後系統自動產生員工編號與初始密碼</td>
+          <td class="step-name">新增員工（A~H 完整區塊）</td>
+          <td class="step-desc">於單頁表單填寫個人身份、聯絡、學歷、任職、勞健保、薪轉帳戶、眷屬等資料，系統自動產生員工編號與固定初始密碼</td>
           <td class="td-confirm">
             <label><input type="radio" name="m01_s0" value="同意"> 同意</label>
             <label><input type="radio" name="m01_s0" value="調整"> 需調整</label>
             <label><input type="radio" name="m01_s0" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">部門／職稱來源（M-00）</td>
+          <td class="step-desc">部門與職稱不再由人資自由輸入，改從 M-00 組織管理維護的清單選取</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m01_s0b" value="同意"> 同意</label>
+            <label><input type="radio" name="m01_s0b" value="調整"> 需調整</label>
+            <label><input type="radio" name="m01_s0b" value="刪除"> 不需要</label>
           </td>
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>
@@ -1066,7 +1105,7 @@
       <span class="section-num">4</span>
       <div>
         <h2>M-04 請假申請 × M-05 審核中心 詳細流程</h2>
-        <p class="section-desc">員工提出申請後的完整狀態流轉，包含各申請類型的分支與核准後自動動作。</p>
+        <p class="section-desc">員工提出申請後的完整狀態流轉，共 <strong>5 種申請類型</strong>（請假／外出／出差／加班／補卡），請假細分 <strong>14 種假別</strong>（依勞基法、勞工請假規則、性別工作平等法），包含各類型分支與核准後自動動作。</p>
       </div>
     </div>
     <div class="chart-wrapper">
@@ -1074,34 +1113,39 @@
     EMP([👤 員工]) --> FORM[填寫申請表單 M-04]
     FORM --> TYPE{申請類型}
 
-    TYPE -- 請假 --> L1[選擇假別\n特休/病假/事假/補休/產假/公假]
-    L1 --> L2[填寫起迄日期\n及事由說明]
+    TYPE -- 請假 --> L1[選擇假別（共14種）\n特休/傷病假/事假/婚假/喪假\n公假/補休/生理假/產假等]
+    L1 --> L2[整天或時段請假\n填起迄日期及事由]
 
-    TYPE -- 出差外出 --> T1[填寫出差地點\n出差目的及交通方式]
-    T1 --> T2[填寫起迄日期\n及事由說明]
+    TYPE -- 外出 --> W1[填寫外出地點\n外出目的（當日返回）]
+    W1 --> W2[填寫時間及事由說明]
 
-    TYPE -- 加班申請 --> O1[填寫加班日期\n及起迄時間]
+    TYPE -- 出差 --> T1[填寫出差地點\n出差目的及交通方式]
+    T1 --> T2[填寫起迄日期\n及事由說明（可多日）]
 
-    TYPE -- 補卡申請 --> C1[填寫補卡日期\n及補卡時間]
+    TYPE -- 加班申請 --> O1[填寫加班日期\n及起迄時間\n可事前或事後7天內補申請]
+
+    TYPE -- 補卡申請 --> C1[填寫補卡日期\n補上班卡/補下班卡時間\n（至少擇一）]
 
     L2 --> SUBMIT[送出申請\n狀態：審核中]
+    W2 --> SUBMIT
     T2 --> SUBMIT
     O1 --> SUBMIT
     C1 --> SUBMIT
 
     SUBMIT --> MGR([👔 主管開啟審核中心 M-05])
-    MGR --> VIEW[查看申請卡片\n申請人/類型/期間/事由]
+    MGR --> SCOPE[僅顯示「直屬主管為自己」\n的員工申請\n人資/管理員可看全員]
+    SCOPE --> VIEW[查看申請卡片\n申請人/類型/期間/事由]
     VIEW --> DECISION{審核決定}
 
     DECISION -- 核准 --> APP[點擊「核准」]
     APP --> AUTO{申請類型}
     AUTO -- 請假 --> A1[✅ 出勤狀態\n更新為「請假」]
-    AUTO -- 出差外出 --> A4[✅ 出勤狀態\n更新為「出差」]
+    AUTO -- 外出/出差 --> A4[✅ 出勤紀錄\n加上附加標記\n不影響主要出勤狀態]
     AUTO -- 補卡 --> A2[✅ 出勤紀錄\n自動補登]
     AUTO -- 加班 --> A3[✅ 加班時數\n自動累加]
 
-    DECISION -- 駁回 --> REJ[填寫駁回原因]
-    REJ --> NOTIFY[狀態：已駁回\n員工收到結果]
+    DECISION -- 駁回 --> REJ[填寫駁回原因（必填）]
+    REJ --> NOTIFY[狀態：已駁回\n員工收到結果\n可修改後重新送出]
 
     A1 --> END([📋 流程結束])
     A4 --> END
@@ -1133,7 +1177,7 @@
       <tbody>
         <tr>
           <td class="step-name">填寫申請表單</td>
-          <td class="step-desc">員工選擇申請類型（請假/加班/補卡）</td>
+          <td class="step-desc">員工選擇申請類型（請假／外出／出差／加班／補卡，共 5 種）</td>
           <td class="td-confirm">
             <label><input type="radio" name="m04-m05_s0" value="同意"> 同意</label>
             <label><input type="radio" name="m04-m05_s0" value="調整"> 需調整</label>
@@ -1142,8 +1186,8 @@
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>
         <tr>
-          <td class="step-name">請假 – 選擇假別</td>
-          <td class="step-desc">特休/病假/事假/補休/產假/公假</td>
+          <td class="step-name">請假 – 選擇假別（共 14 種）</td>
+          <td class="step-desc">特休/普通傷病假/住院病假/事假/婚假/喪假/公假/補休/生理假/產假/安胎假/陪產假/家庭照顧假/育嬰留職停薪</td>
           <td class="td-confirm">
             <label><input type="radio" name="m04-m05_s1" value="同意"> 同意</label>
             <label><input type="radio" name="m04-m05_s1" value="調整"> 需調整</label>
@@ -1152,8 +1196,8 @@
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>
         <tr>
-          <td class="step-name">請假 – 填起迄日期與事由</td>
-          <td class="step-desc"></td>
+          <td class="step-name">請假 – 整天或時段、填起迄日期與事由</td>
+          <td class="step-desc">可整天請假，或以 30 分鐘為單位申請時段假；喪假需另選親等</td>
           <td class="td-confirm">
             <label><input type="radio" name="m04-m05_s2" value="同意"> 同意</label>
             <label><input type="radio" name="m04-m05_s2" value="調整"> 需調整</label>
@@ -1162,8 +1206,18 @@
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>
         <tr>
-          <td class="step-name">出差外出 – 獨立申請類型</td>
-          <td class="step-desc">填寫出差地點、目的、交通方式（與公假分離）</td>
+          <td class="step-name">外出 – 獨立申請類型</td>
+          <td class="step-desc">當日公務外出，填寫目的地、任務說明，同日內返回（與出差區分）</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m04-m05_s3w" value="同意"> 同意</label>
+            <label><input type="radio" name="m04-m05_s3w" value="調整"> 需調整</label>
+            <label><input type="radio" name="m04-m05_s3w" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">出差 – 獨立申請類型</td>
+          <td class="step-desc">填寫出差地點、目的、交通方式，可能過夜或多日</td>
           <td class="td-confirm">
             <label><input type="radio" name="m04-m05_s3a" value="同意"> 同意</label>
             <label><input type="radio" name="m04-m05_s3a" value="調整"> 需調整</label>
@@ -1173,7 +1227,7 @@
         </tr>
         <tr>
           <td class="step-name">加班申請 – 填起迄時間</td>
-          <td class="step-desc"></td>
+          <td class="step-desc">可事前申請，也可於加班後 7 天內補申請，逾期系統自動封鎖</td>
           <td class="td-confirm">
             <label><input type="radio" name="m04-m05_s3" value="同意"> 同意</label>
             <label><input type="radio" name="m04-m05_s3" value="調整"> 需調整</label>
@@ -1183,7 +1237,7 @@
         </tr>
         <tr>
           <td class="step-name">補卡申請 – 填補卡時間</td>
-          <td class="step-desc"></td>
+          <td class="step-desc">補上班卡與補下班卡時間，至少擇一填寫</td>
           <td class="td-confirm">
             <label><input type="radio" name="m04-m05_s4" value="同意"> 同意</label>
             <label><input type="radio" name="m04-m05_s4" value="調整"> 需調整</label>
@@ -1202,8 +1256,8 @@
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>
         <tr>
-          <td class="step-name">主管查看審核中心</td>
-          <td class="step-desc">看到申請卡片含所有申請資訊</td>
+          <td class="step-name">主管查看審核中心（範圍限本部門）</td>
+          <td class="step-desc">看到申請卡片含所有申請資訊；主管僅能看到直屬下屬的申請，人資／管理員可看全員</td>
           <td class="td-confirm">
             <label><input type="radio" name="m04-m05_s6" value="同意"> 同意</label>
             <label><input type="radio" name="m04-m05_s6" value="調整"> 需調整</label>
@@ -1222,8 +1276,8 @@
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>
         <tr>
-          <td class="step-name">駁回並填寫原因</td>
-          <td class="step-desc">員工收到駁回通知</td>
+          <td class="step-name">駁回並填寫原因（必填）</td>
+          <td class="step-desc">員工收到駁回通知，可修改內容後重新送出（系統記錄「第 N 次送出」）</td>
           <td class="td-confirm">
             <label><input type="radio" name="m04-m05_s8" value="同意"> 同意</label>
             <label><input type="radio" name="m04-m05_s8" value="調整"> 需調整</label>
@@ -1257,6 +1311,9 @@
         <h2>M-06 績效考核流程</h2>
         <p class="section-desc">主管對員工進行四維度定期評核，系統自動計算評等後由管理層確認定案。</p>
       </div>
+    </div>
+    <div style="background:#FFF3CD;border-left:4px solid #F5A623;border-radius:0 6px 6px 0;padding:12px 18px;margin:0 0 16px;color:#6b4f12;font-size:13px;line-height:1.7;">
+      ⏸ <strong>目前狀態：暫緩開發。</strong>因協會組織正在改選，考核架構（維度／期間／權重）可能隨新任理監事會調整，待組織確定後再與貴協會重新確認本模組規格。以下流程與確認表維持原規劃，供組織確定後討論參考，暫不列入本階段開發範圍。
     </div>
     <div class="chart-wrapper">
       <div class="mermaid">flowchart TD
@@ -1883,12 +1940,12 @@
       <span class="section-num">9</span>
       <div>
         <h2>M-01 薪資資料管理流程</h2>
-        <p class="section-desc">員工基本資料模組新增薪資欄位（本薪／津貼／職務加給），HR 建立後須經主管核准方可生效，保留完整異動歷程。</p>
+        <p class="section-desc">員工基本資料模組新增薪資欄位（本薪或時薪／最多 5 項可自訂津貼／生效日期），津貼名稱由 <strong>M-00 組織管理</strong>統一設定，HR 建立後須經直屬主管核准方可生效，保留完整異動歷程。</p>
       </div>
     </div>
     <div class="chart-wrapper">
       <div class="mermaid">flowchart TD
-    HR([👩‍💼 人資 HR]) --> CREATE[建立薪資資料\n本薪 ／ 津貼 ／ 職務加給\n生效日期]
+    HR([👩‍💼 人資 HR]) --> CREATE[建立薪資資料\n本薪／時薪 ＋ 最多5項津貼\n（津貼名稱來自M-00）\n生效日期]
     CREATE --> DRAFT[狀態：草稿]
     DRAFT --> SEND[送交主管審核\n狀態：待確認]
     SEND --> MGR([👔 主管])

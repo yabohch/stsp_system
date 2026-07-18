@@ -461,10 +461,13 @@
     <li><a href="#m04-m05">4. M-04 請假申請 × M-05 審核中心 詳細流程</a></li>
     <li><a href="#m06">5. M-06 績效考核流程</a></li>
     <li><a href="#finance">6. 帳務模組整合流程（M-08 / M-09 / M-10 / M-11）</a></li>
-    <li><a href="#m12">7. M-12 請購單完整流程</a></li>
-    <li><a href="#cross-module">8. 跨模組自動化整合流程</a></li>
-    <li><a href="#m01-salary">9. M-01 薪資資料管理流程</a></li>
-    <li><a href="#m13">10. M-13 智慧提醒流程</a></li>
+    <li><a href="#m12">7. M-12 請購單完整流程（分級簽核改版）</a></li>
+    <li><a href="#m14">8. M-14 進帳單流程</a></li>
+    <li><a href="#m15">9. M-15 外部專案金流核銷流程</a></li>
+    <li><a href="#m16">10. M-16 銀行收支日記帳流程</a></li>
+    <li><a href="#cross-module">11. 跨模組自動化整合流程</a></li>
+    <li><a href="#m01-salary">12. M-01 薪資資料管理流程</a></li>
+    <li><a href="#m13">13. M-13 智慧提醒流程</a></li>
     <li><a href="#requirements">📋 功能需求確認清單</a></li>
   </ul>
 </nav>
@@ -487,7 +490,7 @@
       <span>業主：社團法人中華民國南部科學園區產學協會</span>
       <span>版本：v1.0</span>
       <span>日期：2026 年 6 月</span>
-      <span>流程圖數量：10 張</span>
+      <span>流程圖數量：13 張</span>
     </div>
   </div>
 
@@ -504,7 +507,7 @@
       <span class="section-num">📋</span>
       <div>
         <h2>功能需求確認清單</h2>
-        <p class="section-desc">共 35 項功能細節，請逐條選擇確認狀態並填寫意見，完成後點底部「寄送回覆」或「匯出回覆」。</p>
+        <p class="section-desc">共 59 項功能細節，請逐條選擇確認狀態並填寫意見，完成後點底部「寄送回覆」或「匯出回覆」。<strong>#36～59 為財務模組（進帳單／外部專案金流核銷／銀行日記帳）新增項目</strong>，依《財務系統—功能性需求0602.pdf》與 Google 表單實地查核結果整理。</p>
       </div>
     </div>
     <div class="req-body">
@@ -552,6 +555,21 @@
             <tr><td class="req-no">23</td><td class="req-mod">M-10</td><td class="req-q">是否需要匯出財務報表（PDF 或 Excel）？</td><td class="req-sel"><select class="req-confirm" data-req="23"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="23"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="23"></td></tr>
             <tr style="background:#FAFBFC"><td class="req-no">24</td><td class="req-mod">M-11</td><td class="req-q">預算警示門檻（70% / 90%）是否適合貴協會實際需求？</td><td class="req-sel"><select class="req-confirm" data-req="24"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="24"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="24"></td></tr>
             <tr><td class="req-no">25</td><td class="req-mod">M-11</td><td class="req-q">預算期間是否為年度制，或需要支援季度預算？</td><td class="req-sel"><select class="req-confirm" data-req="25"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="25"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="25"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">36</td><td class="req-mod">M-08</td><td class="req-q">專案是否可設定「適用請購單類型」與「自訂選項清單」？<br><span class="req-note">查核發現各請購單類型的「專案別」下拉選項互不相同（一般/所得單含中華、醫療法規；出差單不含產投5+2；國外所得單是完全不同的「協會/專技/其他」），是否代表這些其實是不同性質的分類體系？</span></td><td class="req-sel"><select class="req-confirm" data-req="36"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="36"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="36"></td></tr>
+            <tr><td class="req-no">37</td><td class="req-mod">M-14</td><td class="req-q">進帳單的審核是否比照 M-12 分級簽核（依金額分小額/中額/高額），或固定由某一角色審核即可？</td><td class="req-sel"><select class="req-confirm" data-req="37"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="37"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="37"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">38</td><td class="req-mod">M-14</td><td class="req-q">進帳單「科目」清單（收入／保證金／沖暫借款／其他）是否完整？<br><span class="req-note">現行 Google 表單實測結果，比想像中精簡</span></td><td class="req-sel"><select class="req-confirm" data-req="38"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="38"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="38"></td></tr>
+            <tr><td class="req-no">39</td><td class="req-mod">M-14</td><td class="req-q">「付款單位」「收款人」欄位是否需要對應到受款人主檔，或維持自由文字輸入即可？</td><td class="req-sel"><select class="req-confirm" data-req="39"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="39"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="39"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">40</td><td class="req-mod">M-14</td><td class="req-q">進帳單是否需要「附件上傳」功能？<br><span class="req-note">如退款證明、匯款單截圖</span></td><td class="req-sel"><select class="req-confirm" data-req="40"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="40"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="40"></td></tr>
+            <tr style="background:#FDECEA"><td class="req-no">41</td><td class="req-mod">M-15</td><td class="req-q">🔴 關帳提醒／到期前通知要求 Email 自動發送，與現行「Email 通知不在範圍內」規劃直接衝突，範圍是否已變更？<br><span class="req-note">與 #32 智慧提醒類的 Email 通知問題相關，建議優先確認，會影響其他設計是否成立</span></td><td class="req-sel"><select class="req-confirm" data-req="41"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="41"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="41"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">42</td><td class="req-mod">M-15</td><td class="req-q">「發票管理（關網資訊）與收入串接」具體所指為何？<br><span class="req-note">是否為財政部電子發票平台串接？需釐清技術範圍與可行性</span></td><td class="req-sel"><select class="req-confirm" data-req="42"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="42"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="42"></td></tr>
+            <tr><td class="req-no">43</td><td class="req-mod">M-15</td><td class="req-q">外部專案「專屬帳號」的登入機制：沿用員工帳號限縮權限範圍，或需要獨立的外部協作者帳號？</td><td class="req-sel"><select class="req-confirm" data-req="43"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="43"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="43"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">44</td><td class="req-mod">M-15</td><td class="req-q">刷卡收入批次匯入的檔案格式來源？<br><span class="req-note">哪個刷卡平台？匯出格式為何？</span></td><td class="req-sel"><select class="req-confirm" data-req="44"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="44"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="44"></td></tr>
+            <tr><td class="req-no">45</td><td class="req-mod">M-15</td><td class="req-q">逾期未核銷結餘扣 20% 營所稅，是否所有外部專案適用同一稅率？<br><span class="req-note">範例僅 TE2026 一案，其他專案規則待確認</span></td><td class="req-sel"><select class="req-confirm" data-req="45"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="45"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="45"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">46</td><td class="req-mod">M-15</td><td class="req-q">管理費收取週期「每 6 個月」是否為所有外部專案的固定週期，或依專案個別設定？</td><td class="req-sel"><select class="req-confirm" data-req="46"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="46"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="46"></td></tr>
+            <tr><td class="req-no">47</td><td class="req-mod">M-16</td><td class="req-q">「貼上網銀資料」的實際操作方式：複製貼上文字解析，還是上傳銀行匯出檔案？<br><span class="req-note">各家銀行格式是否需要分別設定解析規則？</span></td><td class="req-sel"><select class="req-confirm" data-req="47"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="47"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="47"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">48</td><td class="req-mod">M-16</td><td class="req-q">「收支及存款三方串接」是否要做銀行 API 即時串接，還是以匯入＋人工勾稽為主？</td><td class="req-sel"><select class="req-confirm" data-req="48"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="48"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="48"></td></tr>
+            <tr><td class="req-no">49</td><td class="req-mod">M-16</td><td class="req-q">「可備份系統所有資訊」的範圍：僅財務模組，還是全系統（含人事模組）備份？</td><td class="req-sel"><select class="req-confirm" data-req="49"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="49"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="49"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">50</td><td class="req-mod">M-16</td><td class="req-q">月結報表 Excel 匯出格式是否有既定範本可沿用？<br><span class="req-note">業主現有 Excel 表格式可否直接沿用</span></td><td class="req-sel"><select class="req-confirm" data-req="50"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="50"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="50"></td></tr>
           </tbody>
         </table></div>
         <div class="req-section-comment" style="margin:10px 0 0 0;border-radius:0 0 6px 6px;">
@@ -568,6 +586,15 @@
             <tr><td class="req-no">26</td><td class="req-mod">M-12</td><td class="req-q">請購金額是否需要分層核准門檻？<br><span class="req-note">如：小額由主管核准；大額需秘書長複核</span></td><td class="req-sel"><select class="req-confirm" data-req="26"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="26"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="26"></td></tr>
             <tr style="background:#FAFBFC"><td class="req-no">27</td><td class="req-mod">M-12</td><td class="req-q">是否需要「請購單附件上傳」功能？<br><span class="req-note">如報價單、發票掃描</span></td><td class="req-sel"><select class="req-confirm" data-req="27"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="27"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="27"></td></tr>
             <tr><td class="req-no">28</td><td class="req-mod">M-12</td><td class="req-q">駁回後，申請人是否可以修改後重新送出？</td><td class="req-sel"><select class="req-confirm" data-req="28"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="28"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="28"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">51</td><td class="req-mod">M-12</td><td class="req-q">分級簽核的具體金額級距數字（小額／中額／高額分界點）？<br><span class="req-note">是否依請購單類型或財務類別不同而異？此問題延續 #26，本次已確認「需要分級」，缺實際數字</span></td><td class="req-sel"><select class="req-confirm" data-req="51"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="51"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="51"></td></tr>
+            <tr><td class="req-no">52</td><td class="req-mod">M-12</td><td class="req-q">「執行秘書」「秘書長」目前組織帳號分別對應 manager／admin 角色，簽核層級要如何精確對應到系統帳號？<br><span class="req-note">是否要新增更細的職務欄位，或直接指定特定人員即可？</span></td><td class="req-sel"><select class="req-confirm" data-req="52"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="52"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="52"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">53</td><td class="req-mod">M-12</td><td class="req-q">所得稅代扣門檻（$2,000／$5,000）與二代健保補充保費費率，是否為現行有效版本？<br><span class="req-note">需與會計師確認公式，門檻與費率建議做成後台可調參數而非寫死</span></td><td class="req-sel"><select class="req-confirm" data-req="53"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="53"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="53"></td></tr>
+            <tr><td class="req-no">54</td><td class="req-mod">M-12</td><td class="req-q">出差天數上限是否有實際限制？超過如何處理？<br><span class="req-note">現行紙本範例僅顯示到 Day6</span></td><td class="req-sel"><select class="req-confirm" data-req="54"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="54"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="54"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">55</td><td class="req-mod">M-12</td><td class="req-q">出差申請「次月 5 日前」逾期不受理，新系統要完全擋下（＋admin 可覆核），還是改為警示但仍可送出？<br><span class="req-note">現行 Google 表單已明文此規則，屬既有業務規則而非新增</span></td><td class="req-sel"><select class="req-confirm" data-req="55"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="55"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="55"></td></tr>
+            <tr><td class="req-no">56</td><td class="req-mod">M-12</td><td class="req-q">國外所得請購單的所得類別現行僅開放「薪資」「演講稿費」兩項（無「其他所得」），是否為業務規則本身如此？</td><td class="req-sel"><select class="req-confirm" data-req="56"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="56"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="56"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">57</td><td class="req-mod">M-12</td><td class="req-q">受款人主檔的分類（員工／外部個人／廠商）是否足夠，或需要更細分類？<br><span class="req-note">如政府機關、學校等</span></td><td class="req-sel"><select class="req-confirm" data-req="57"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="57"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="57"></td></tr>
+            <tr><td class="req-no">58</td><td class="req-mod">M-12</td><td class="req-q">付款資訊「送出時選填、核准後財務必填」的折衷設計是否符合期待？<br><span class="req-note">現行 Google 表單完全未收集付款資訊（由財務事後在紙本補上），業主是否希望申請人一律於送出時就填齊</span></td><td class="req-sel"><select class="req-confirm" data-req="58"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="58"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="58"></td></tr>
+            <tr style="background:#FAFBFC"><td class="req-no">59</td><td class="req-mod">M-12</td><td class="req-q">各請購單類型「專案別」下拉選項彼此不一致，各表單的可選專案清單是否應該統一整併？</td><td class="req-sel"><select class="req-confirm" data-req="59"><option value="">— 請選擇 —</option><option>同意現有設計</option><option>需要調整</option><option>不需要此功能</option><option>待討論</option></select></td><td class="req-sel"><select class="req-priority" data-req="59"><option value="">—</option><option>高</option><option>中</option><option>低</option></select></td><td><input type="text" class="comment-input req-reply" placeholder="填寫回覆…" data-req="59"></td></tr>
           </tbody>
         </table></div>
         <div class="req-section-comment" style="margin:10px 0 0 0;border-radius:0 0 6px 6px;">
@@ -1600,52 +1627,58 @@
     <div class="section-header">
       <span class="section-num">7</span>
       <div>
-        <h2>M-12 請購單完整流程</h2>
-        <p class="section-desc">從員工提出採購需求到財務付款完成，付款後自動計入收支並更新專案財務。</p>
+        <h2>M-12 請購單完整流程（分級簽核改版）</h2>
+        <p class="section-desc">依業主提供的《財務系統—功能性需求0602.pdf》與 Google 表單實地查核結果改版：用「請購單類型」統一處理一般／所得／國外所得／出差四種情境，共用同一條送出流程，差異只在欄位與稅務計算；新增依金額自動分級的簽核機制。</p>
       </div>
     </div>
     <div class="chart-wrapper">
       <div class="mermaid">flowchart TD
-    EMP([👤 員工]) --> FILL[填寫請購單\n採購品項 / 費用類別 / 關聯專案 / 採購目的]
-    FILL --> ITEMS[新增採購品項\n品項名稱 / 數量 / 單價 → 小計自動計算]
-    ITEMS --> TOTAL[預估總金額自動加總]
-    TOTAL --> DRAFT{儲存草稿\n或送出?}
-    DRAFT -- 存草稿 --> SAVE[狀態：草稿\n可繼續修改]
-    SAVE --> FILL
-    DRAFT -- 送出 --> PENDING[狀態：待審核]
+    EMP([👤 員工]) --> TYPE{選擇請購單類型}
 
-    PENDING --> MGR([👔 主管審核])
-    MGR --> RESULT{審核結果}
+    TYPE -- 一般 --> F1[填寫費用科目／發票資訊\n未稅金額／稅額自動帶出]
+    TYPE -- 所得 --> F2[填寫受款人稅務資料\n所得類別／應列所得]
+    TYPE -- 國外所得 --> F3[填寫外籍受款人資料\n護照／國籍／所得類別]
+    TYPE -- 出差 --> F4[填寫差旅逐日明細\n交通／住宿／膳雜費自動加總\n⚠次月5日前需申請完畢／僅接受匯款]
 
-    RESULT -- 核准 --> APPROVED[狀態：已核准]
-    RESULT -- 駁回 --> REJECTED[狀態：已駁回\n填寫駁回原因]
+    F1 --> AMT[系統計算請購金額 totalAmount]
+    F2 --> AMT
+    F3 --> AMT
+    F4 --> AMT
 
-    REJECTED --> REAPPLY{申請人\n重新提出?}
-    REAPPLY -- 是 --> FILL
-    REAPPLY -- 否 --> END1([❌ 流程結束])
+    AMT --> TIER{依金額自動分級}
+    TIER -- 小額 --> A1[直屬主管審核]
+    TIER -- 中額 --> A2[執行秘書審核]
+    TIER -- 高額 --> A3[秘書長審核]
 
-    APPROVED --> FIN([💰 財務人員確認])
-    FIN --> PAY[執行付款]
+    A1 --> DEC{審核結果}
+    A2 --> DEC
+    A3 --> DEC
+
+    DEC -- 駁回 --> REJ[退回申請人\n填寫駁回原因]
+    DEC -- 核准 --> PAYCHK{付款資訊\n是否已填齊}
+
+    PAYCHK -- 否 --> FIN1[財務補齊\n受款人／銀行帳戶／付款方式]
+    PAYCHK -- 是 --> PAY[財務執行付款]
+    FIN1 --> PAY
+
     PAY --> PAID[狀態：已付款]
-
-    PAID --> AUTO1[系統自動建立支出記錄\nM-09 收支管理]
-    AUTO1 --> AUTO2[專案損益即時更新\nM-08 專案財務]
-    AUTO2 --> AUTO3[預算使用率更新\nM-11 預算管理]
-    AUTO3 --> END2([✅ 流程完成])
+    PAID --> AUTO1[自動建立支出記錄\nM-09 收支管理]
+    AUTO1 --> AUTO2[專案損益／預算即時更新\nM-08 ／ M-11]
 
     style EMP fill:#1E3A5F,color:#fff
-    style MGR fill:#4A6FA5,color:#fff
-    style FIN fill:#2C7873,color:#fff
-    style APPROVED fill:#D4EDDA
-    style REJECTED fill:#F8D7DA
+    style TIER fill:#4A6FA5,color:#fff
+    style F1 fill:#EBF4FA
+    style F2 fill:#EBF4FA
+    style F3 fill:#EBF4FA
+    style F4 fill:#FFF9C4
+    style REJ fill:#F8D7DA
+    style PAID fill:#D4EDDA
     style AUTO1 fill:#D4EDDA
-    style AUTO2 fill:#D4EDDA
-    style AUTO3 fill:#D4EDDA
-    style END2 fill:#2C7873,color:#fff</div>
+    style AUTO2 fill:#D4EDDA</div>
     </div>
     <div class="confirm-area">
       <h3>✅ 流程確認表</h3>
-      
+
     <table class="confirm-table">
       <thead>
         <tr>
@@ -1657,8 +1690,8 @@
       </thead>
       <tbody>
         <tr>
-          <td class="step-name">填寫請購單</td>
-          <td class="step-desc">選擇財務類別、費用類別、關聯專案、填寫採購目的</td>
+          <td class="step-name">選擇請購單類型</td>
+          <td class="step-desc">一般／所得／國外所得／出差，決定後續顯示欄位（取代舊版單一固定表單）</td>
           <td class="td-confirm">
             <label><input type="radio" name="m12_s0" value="同意"> 同意</label>
             <label><input type="radio" name="m12_s0" value="調整"> 需調整</label>
@@ -1667,8 +1700,8 @@
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>
         <tr>
-          <td class="step-name">新增採購品項</td>
-          <td class="step-desc">品項名稱、數量、單價，系統自動計算小計與總金額</td>
+          <td class="step-name">一般類型欄位</td>
+          <td class="step-desc">費用科目、發票類型／號碼、未稅金額、稅額自動帶出</td>
           <td class="td-confirm">
             <label><input type="radio" name="m12_s1" value="同意"> 同意</label>
             <label><input type="radio" name="m12_s1" value="調整"> 需調整</label>
@@ -1677,8 +1710,8 @@
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>
         <tr>
-          <td class="step-name">儲存草稿</td>
-          <td class="step-desc">可暫存草稿後繼續修改</td>
+          <td class="step-name">所得／國外所得類型欄位</td>
+          <td class="step-desc">受款人稅務資料（身分證／護照／國籍）、所得類別、應列所得，供代扣稅務計算</td>
           <td class="td-confirm">
             <label><input type="radio" name="m12_s2" value="同意"> 同意</label>
             <label><input type="radio" name="m12_s2" value="調整"> 需調整</label>
@@ -1687,8 +1720,8 @@
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>
         <tr>
-          <td class="step-name">送出申請（待審核）</td>
-          <td class="step-desc">提交後進入主管待審核佇列</td>
+          <td class="step-name">出差類型欄位</td>
+          <td class="step-desc">逐日差旅明細（交通／住宿／膳雜）自動加總取代舊版外部 Excel 附件；套用「次月5日前申請」與「僅接受匯款」規則</td>
           <td class="td-confirm">
             <label><input type="radio" name="m12_s3" value="同意"> 同意</label>
             <label><input type="radio" name="m12_s3" value="調整"> 需調整</label>
@@ -1697,8 +1730,8 @@
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>
         <tr>
-          <td class="step-name">主管審核</td>
-          <td class="step-desc">主管在審核中心核准或駁回</td>
+          <td class="step-name">依金額自動分級</td>
+          <td class="step-desc">系統依請購金額自動判定小額／中額／高額，指派對應審核人</td>
           <td class="td-confirm">
             <label><input type="radio" name="m12_s4" value="同意"> 同意</label>
             <label><input type="radio" name="m12_s4" value="調整"> 需調整</label>
@@ -1707,8 +1740,8 @@
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>
         <tr>
-          <td class="step-name">駁回後重新提出</td>
-          <td class="step-desc">申請人可修改後重新送出</td>
+          <td class="step-name">分級審核（直屬主管／執行秘書／秘書長）</td>
+          <td class="step-desc">依分級指派不同審核人，任一層皆可駁回（取代舊版單一層主管審核）</td>
           <td class="td-confirm">
             <label><input type="radio" name="m12_s5" value="同意"> 同意</label>
             <label><input type="radio" name="m12_s5" value="調整"> 需調整</label>
@@ -1717,8 +1750,8 @@
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>
         <tr>
-          <td class="step-name">財務執行付款</td>
-          <td class="step-desc">財務確認核准後執行實際付款</td>
+          <td class="step-name">財務補齊付款資訊</td>
+          <td class="step-desc">已核准但付款資訊（受款人／銀行帳戶／付款方式）未填齊時，財務於此步驟補齊才能付款</td>
           <td class="td-confirm">
             <label><input type="radio" name="m12_s6" value="同意"> 同意</label>
             <label><input type="radio" name="m12_s6" value="調整"> 需調整</label>
@@ -1727,8 +1760,8 @@
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>
         <tr>
-          <td class="step-name">標記已付款</td>
-          <td class="step-desc">狀態改為「已付款」</td>
+          <td class="step-name">財務執行付款／標記已付款</td>
+          <td class="step-desc">確認付款後填入付款日期，狀態改為「已付款」</td>
           <td class="td-confirm">
             <label><input type="radio" name="m12_s7" value="同意"> 同意</label>
             <label><input type="radio" name="m12_s7" value="調整"> 需調整</label>
@@ -1737,8 +1770,8 @@
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>
         <tr>
-          <td class="step-name">自動建立收支記錄（M-09）</td>
-          <td class="step-desc">自動新增一筆支出明細</td>
+          <td class="step-name">自動建立收支記錄並更新專案財務</td>
+          <td class="step-desc">自動新增 M-09 支出明細，M-08 專案損益、M-11 預算使用率即時反映</td>
           <td class="td-confirm">
             <label><input type="radio" name="m12_s8" value="同意"> 同意</label>
             <label><input type="radio" name="m12_s8" value="調整"> 需調整</label>
@@ -1746,13 +1779,330 @@
           </td>
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>
+      </tbody>
+    </table>
+    <div class="overall-comment">
+      <label>📝 本流程整體意見：</label>
+      <textarea placeholder="請輸入對此流程的整體建議或需要調整的地方…" rows="3"></textarea>
+    </div>
+    </div>
+  </section>
+
+  <section id="m14" class="flow-section">
+    <div class="section-header">
+      <span class="section-num">8</span>
+      <div>
+        <h2>M-14 進帳單流程</h2>
+        <p class="section-desc">全新模組，是 M-12 請購單的反向版本：有錢要進來（如學員退費、保證金入帳）時的申請流程。目前業主是用 Google 表單 + 人工登打 Excel 處理，本模組讓申請與財務登記入帳自動串接。</p>
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <div class="mermaid">flowchart TD
+    APP([👤 申請人]) --> FORM[填寫進帳單\n專案別／科目／活動日期／事由／金額]
+    FORM --> SUBMIT[送出\n狀態：待審核]
+    SUBMIT --> REVIEW([👔 審核人])
+    REVIEW --> DEC{審核結果}
+
+    DEC -- 核准 --> WAIT[狀態：待財務登記入帳]
+    DEC -- 駁回 --> REJ[退回申請人\n填寫駁回原因]
+
+    WAIT --> FIN([💰 財務人員])
+    FIN --> DETAIL[登記入款帳號／入款方式\n付款單位／發票或支票號碼]
+    DETAIL --> DONE[狀態：已入帳]
+
+    DONE --> AUTO[自動建立收入記錄\nM-09 收支管理]
+
+    style APP fill:#1E3A5F,color:#fff
+    style FIN fill:#2C7873,color:#fff
+    style DONE fill:#D4EDDA
+    style AUTO fill:#D4EDDA
+    style REJ fill:#F8D7DA</div>
+    </div>
+    <div class="confirm-area">
+      <h3>✅ 流程確認表</h3>
+    <table class="confirm-table">
+      <thead>
         <tr>
-          <td class="step-name">專案損益與預算更新</td>
-          <td class="step-desc">M-08、M-11 即時反映</td>
+          <th>流程步驟</th>
+          <th>說明</th>
+          <th>業主確認</th>
+          <th>業主意見</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="step-name">填寫進帳單</td>
+          <td class="step-desc">專案別、科目（收入／保證金／沖暫借款／其他）、活動日期、事由、進帳金額</td>
           <td class="td-confirm">
-            <label><input type="radio" name="m12_s9" value="同意"> 同意</label>
-            <label><input type="radio" name="m12_s9" value="調整"> 需調整</label>
-            <label><input type="radio" name="m12_s9" value="刪除"> 不需要</label>
+            <label><input type="radio" name="m14_s0" value="同意"> 同意</label>
+            <label><input type="radio" name="m14_s0" value="調整"> 需調整</label>
+            <label><input type="radio" name="m14_s0" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">送出（待審核）</td>
+          <td class="step-desc">觸發 M-13 通知審核人</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m14_s1" value="同意"> 同意</label>
+            <label><input type="radio" name="m14_s1" value="調整"> 需調整</label>
+            <label><input type="radio" name="m14_s1" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">審核（核准／駁回）</td>
+          <td class="step-desc">在 M-05 審核中心處理</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m14_s2" value="同意"> 同意</label>
+            <label><input type="radio" name="m14_s2" value="調整"> 需調整</label>
+            <label><input type="radio" name="m14_s2" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">財務登記入帳細節</td>
+          <td class="step-desc">核准後財務補齊入款帳號、入款方式、付款單位、發票／支票號碼（現行 Google 表單完全未收集這些欄位，皆由財務事後補上）</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m14_s3" value="同意"> 同意</label>
+            <label><input type="radio" name="m14_s3" value="調整"> 需調整</label>
+            <label><input type="radio" name="m14_s3" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">確認已入帳 → 自動建立收入記錄</td>
+          <td class="step-desc">觸發 M-09 自動新增一筆收入明細</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m14_s4" value="同意"> 同意</label>
+            <label><input type="radio" name="m14_s4" value="調整"> 需調整</label>
+            <label><input type="radio" name="m14_s4" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="overall-comment">
+      <label>📝 本流程整體意見：</label>
+      <textarea placeholder="請輸入對此流程的整體建議或需要調整的地方…" rows="3"></textarea>
+    </div>
+    </div>
+  </section>
+
+  <section id="m15" class="flow-section">
+    <div class="section-header">
+      <span class="section-num">9</span>
+      <div>
+        <h2>M-15 外部專案金流核銷流程</h2>
+        <p class="section-desc">全新模組。外部專案（政府計畫、研討會招生等）的錢與協會總帳隔離、獨立管理：每個專案有自己的管理費率、核銷期限、營所稅規則。目前業主用 Excel 管理（如「吳賢雄精英論壇」單筆收入、「TE2026」國際研討會刷卡收入範例），本模組讓結餘款即時試算。</p>
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <div class="mermaid">flowchart TD
+    FIN([💰 財務人員]) --> CONF[設定外部專案規則\n管理費率／核銷期限／營所稅率]
+    CONF --> ACC[建立專屬帳號\nEmail 登入，範圍限定此專案]
+
+    ACC --> INC{登錄收入}
+    INC -- 單筆匯款 --> IN1[手動輸入一筆]
+    INC -- 刷卡收入 --> IN2[批次匯入報名／繳費明細\n國內／國外費率各異]
+
+    IN1 --> CALC[即時結餘計算\n收入－管理費－刷卡手續費－已核銷支出]
+    IN2 --> CALC
+    CALC --> BAL[顯示可核銷結餘款]
+
+    BAL --> REQ[專案人員憑帳號提出請購\nM-12]
+    REQ --> CALC
+
+    CALC --> DEAD{是否已達核銷期限}
+    DEAD -- 否 --> BAL
+    DEAD -- 是 --> ZERO{結餘是否已核銷完畢}
+    ZERO -- 是 --> CLOSE[專案關帳]
+    ZERO -- 否 --> TAX[扣繳營所稅後結算餘額]
+    TAX --> CLOSE
+
+    style FIN fill:#1E3A5F,color:#fff
+    style CLOSE fill:#2C7873,color:#fff
+    style TAX fill:#FDECEA
+    style BAL fill:#D4EDDA</div>
+    </div>
+    <div class="confirm-area">
+      <h3>✅ 流程確認表</h3>
+    <table class="confirm-table">
+      <thead>
+        <tr>
+          <th>流程步驟</th>
+          <th>說明</th>
+          <th>業主確認</th>
+          <th>業主意見</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="step-name">設定專案財務規則</td>
+          <td class="step-desc">管理費率（範例 12～14%）、核銷期限（關帳日）、營所稅率（範例逾期扣 20%）</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m15_s0" value="同意"> 同意</label>
+            <label><input type="radio" name="m15_s0" value="調整"> 需調整</label>
+            <label><input type="radio" name="m15_s0" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">建立外部專案專屬帳號</td>
+          <td class="step-desc">以 Email 為帳號，權限範圍限定在該專案，可查詢收支明細／付款進度／即時結餘</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m15_s1" value="同意"> 同意</label>
+            <label><input type="radio" name="m15_s1" value="調整"> 需調整</label>
+            <label><input type="radio" name="m15_s1" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">登錄收入（單筆／刷卡批次）</td>
+          <td class="step-desc">單筆匯款手動輸入；刷卡收入批次匯入，國內／國外手續費率分開計算</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m15_s2" value="同意"> 同意</label>
+            <label><input type="radio" name="m15_s2" value="調整"> 需調整</label>
+            <label><input type="radio" name="m15_s2" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">即時結餘款計算</td>
+          <td class="step-desc">收入－管理費－刷卡手續費－已核准請購，即時顯示可核銷結餘</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m15_s3" value="同意"> 同意</label>
+            <label><input type="radio" name="m15_s3" value="調整"> 需調整</label>
+            <label><input type="radio" name="m15_s3" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">憑專屬帳號提出請購</td>
+          <td class="step-desc">透過 M-12 提出，計入本專案已核銷支出</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m15_s4" value="同意"> 同意</label>
+            <label><input type="radio" name="m15_s4" value="調整"> 需調整</label>
+            <label><input type="radio" name="m15_s4" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">關帳結算</td>
+          <td class="step-desc">達核銷期限時，若結餘未核銷完畢，扣繳營所稅後結算餘額</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m15_s5" value="同意"> 同意</label>
+            <label><input type="radio" name="m15_s5" value="調整"> 需調整</label>
+            <label><input type="radio" name="m15_s5" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr style="background:#FDECEA">
+          <td class="step-name">🔴 關帳 Email 提醒</td>
+          <td class="step-desc">到期前通知、關帳期限提醒 —— 與現行「Email 通知不在範圍內」規劃衝突，需優先確認範圍是否已變更（見需求清單 #41）</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m15_s6" value="同意"> 同意</label>
+            <label><input type="radio" name="m15_s6" value="調整"> 需調整</label>
+            <label><input type="radio" name="m15_s6" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="overall-comment">
+      <label>📝 本流程整體意見：</label>
+      <textarea placeholder="請輸入對此流程的整體建議或需要調整的地方…" rows="3"></textarea>
+    </div>
+    </div>
+  </section>
+
+  <section id="m16" class="flow-section">
+    <div class="section-header">
+      <span class="section-num">10</span>
+      <div>
+        <h2>M-16 銀行收支日記帳流程</h2>
+        <p class="section-desc">全新模組。登錄銀行帳戶實際發生的收支流水，並與 M-12 請購單／M-14 進帳單／M-15 外部專案收入互相「勾稽」核對，是財務對帳的最後一道防線。目前業主用 Excel 手動記帳。</p>
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <div class="mermaid">flowchart TD
+    BANK([🏦 銀行網銀資料]) --> IMPORT[貼上或匯入銀行流水]
+    IMPORT --> CLS[人工分類\n指定專案與科目]
+    CLS --> MATCH{是否找得到對應單號}
+
+    MATCH -- 是 --> LINK[勾稽對應\nM-12請購單／M-14進帳單]
+    MATCH -- 否 --> FLAG[標記「未勾稽」\n待確認]
+
+    LINK --> STATUS[更新為「已勾稽」]
+    FLAG --> REVIEW([💰 財務人員追查差異])
+    REVIEW --> LINK
+
+    STATUS --> REPORT[月結：各專案收支總表\nExcel 匯出]
+
+    style BANK fill:#1E3A5F,color:#fff
+    style STATUS fill:#D4EDDA
+    style FLAG fill:#FFF9C4
+    style REPORT fill:#2C7873,color:#fff</div>
+    </div>
+    <div class="confirm-area">
+      <h3>✅ 流程確認表</h3>
+    <table class="confirm-table">
+      <thead>
+        <tr>
+          <th>流程步驟</th>
+          <th>說明</th>
+          <th>業主確認</th>
+          <th>業主意見</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="step-name">貼上／匯入網銀資料</td>
+          <td class="step-desc">複製貼上文字解析，或上傳銀行匯出檔案（CSV／Excel）</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m16_s0" value="同意"> 同意</label>
+            <label><input type="radio" name="m16_s0" value="調整"> 需調整</label>
+            <label><input type="radio" name="m16_s0" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">指定專案與科目分類</td>
+          <td class="step-desc">為每筆銀行流水人工分類</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m16_s1" value="同意"> 同意</label>
+            <label><input type="radio" name="m16_s1" value="調整"> 需調整</label>
+            <label><input type="radio" name="m16_s1" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">單號勾稽</td>
+          <td class="step-desc">對應到 M-12 請購單或 M-14 進帳單，比對金額是否相符</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m16_s2" value="同意"> 同意</label>
+            <label><input type="radio" name="m16_s2" value="調整"> 需調整</label>
+            <label><input type="radio" name="m16_s2" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">未勾稽項目追查</td>
+          <td class="step-desc">找不到對應單號時標記「未勾稽」，財務人員追查差異原因</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m16_s3" value="同意"> 同意</label>
+            <label><input type="radio" name="m16_s3" value="調整"> 需調整</label>
+            <label><input type="radio" name="m16_s3" value="刪除"> 不需要</label>
+          </td>
+          <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
+        </tr>
+        <tr>
+          <td class="step-name">月結報表匯出</td>
+          <td class="step-desc">每月各專案別／科目金額統計，Excel 匯出</td>
+          <td class="td-confirm">
+            <label><input type="radio" name="m16_s4" value="同意"> 同意</label>
+            <label><input type="radio" name="m16_s4" value="調整"> 需調整</label>
+            <label><input type="radio" name="m16_s4" value="刪除"> 不需要</label>
           </td>
           <td class="td-comment"><input type="text" placeholder="填寫意見…" class="comment-input"></td>
         </tr>
@@ -1767,7 +2117,7 @@
 
   <section id="cross-module" class="flow-section">
     <div class="section-header">
-      <span class="section-num">8</span>
+      <span class="section-num">11</span>
       <div>
         <h2>跨模組自動化整合流程</h2>
         <p class="section-desc">系統內各模組之間的自動化串聯邏輯，核准一個申請後系統自動完成對應動作，不需要人工重複輸入。</p>
@@ -1937,7 +2287,7 @@
 
   <section id="m01-salary" class="flow-section">
     <div class="section-header">
-      <span class="section-num">9</span>
+      <span class="section-num">12</span>
       <div>
         <h2>M-01 薪資資料管理流程</h2>
         <p class="section-desc">員工基本資料模組新增薪資欄位（本薪或時薪／最多 5 項可自訂津貼／生效日期），津貼名稱由 <strong>M-00 組織管理</strong>統一設定，HR 建立後須經直屬主管核准方可生效，保留完整異動歷程。</p>
@@ -2039,7 +2389,7 @@
 
   <section id="m13" class="flow-section">
     <div class="section-header">
-      <span class="section-num">10</span>
+      <span class="section-num">13</span>
       <div>
         <h2>M-13 智慧提醒流程</h2>
         <p class="section-desc">系統依角色自動推送差勤、薪資異動、帳務等提醒，導覽列顯示 Bell icon 及未讀數字角標。</p>
